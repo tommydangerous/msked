@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block subheader %}
+<header class="subHeader">
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url employees.views.new %}">
+                    Add Employee
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+{% endblock %}
+{% block content %}
+<div class="employees">
+    {% include 'shared/search.html' %}
+    <h1>Employees: {{ emp_count }}</h1>
+    {% for employee in objects %}
+        {% include 'employees/employee.html' %}
+    {% endfor %}
+</div>
+{% include 'pagination.html' %}
+{% endblock %}

@@ -1,0 +1,25 @@
+.undos ol {
+    font-size: 14px;
+    margin: 0;
+    padding: 0 0 0 40px;
+}
+
+.undo {
+    border-top: 1px dotted rgb(200, 200, 200);
+    padding: 10px 20px;
+}
+
+.undo a {
+    float: right;
+}
+
+.undo h1 {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 21px;
+    margin: 0 0 5px 0;
+}
+
+.undo p {
+    color: rgb(160, 160, 160);
+}

@@ -1,0 +1,22 @@
+<form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="field">
+            <p>{{ field.label }}</p>
+            {{ field.errors }}
+            {{ field }}
+        </div>
+    {% endfor %}
+    <div class="action">
+        <input type="submit" value="Submit">
+        {% if item %}
+            <a href="{% url employees.views.history employee.slug item %}">
+                Cancel
+            </a>
+        {% else %}
+            <a href="{% url employees.views.notes employee.slug %}">
+                Cancel
+            </a>
+        {% endif %}
+    </div>
+</form>

@@ -1,0 +1,9 @@
+<li>
+    <div class="undo">
+        <a href="{% url undos.views.delete undo.pk %}">
+            Undo
+        </a>
+        <h1>{{ undo }}</h1>
+        <p>{{ undo.date_time }}</p>
+    </div>
+</li>

@@ -1,0 +1,162 @@
+/* employees */
+.employees h1, .employeeName {
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0 0 20px 0;
+}
+
+.employees h1 a {
+    color: rgb(40, 40, 40);
+}
+
+/* search */
+#search {
+    float: right;
+}
+
+#search .field, #search .action {
+    float: left;
+}
+
+#search .field {
+    margin: 0;
+}
+
+#search .field input {
+    font-size: 14px;
+    padding: 5px;
+    width: 200px;
+}
+
+#search .action {
+    margin: 0 0 0 10px;
+}
+
+#search .action input {
+    padding: 6px 10px;
+}
+
+/* employee list */
+.employeeSingle {
+    border-top: 1px dotted rgb(200, 200, 200);
+}
+
+.employeeSingle:hover {
+    background: rgb(230, 230, 230);
+}
+
+.employeeLink {
+    display: block;
+    height: 86px;
+    position: absolute;
+    width: 100%;
+}
+
+.employeeSingleName {
+    font-size: 14px;
+    margin: 0 0 5px 0;
+    padding: 10px 20px 0 20px;
+}
+
+.employeeSingleStats {
+    color: rgb(120, 120, 120);
+    font-size: 12px;
+    padding: 0 20px 10px 20px;
+}
+
+.employeeSingleLabel {
+    float: left;
+    margin-right: 3px;
+    width: 60px;
+}
+
+.employeeSingleData {
+    float: left;
+}
+
+/* employee detail */
+.employee {
+    width: 400px;
+}
+
+.employee, .employeeHistory {
+    float: left;
+}
+
+.employeeName a, .employeeName a:hover {
+    color: rgb(40, 40, 40);
+}
+
+.employeeStats {
+    font-size: 14px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+
+.employeeStats li {
+    margin: 0 0 20px 0;
+}
+
+.employeeLabel {
+    float: left;
+    width: 100px;
+}
+
+/* employee history */
+.historySection {
+    margin: 0 0 20px 0;
+    width: 500px;
+}
+
+.historySectionName {
+    color: rgb(40, 40, 40);
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+.historySectionName:hover {
+    color: rgb(40, 40, 40);
+}
+
+.historySection h1 {
+    font-size: 14px;
+    margin: 0 0 10px 0;
+}
+
+.historySection .itemAdd {
+    float: right;
+    font-weight: 300;
+}
+
+.historySection ol {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+}
+
+.historySection li {
+    border-top: 1px dotted rgb(200, 200, 200);
+}
+
+.historyInfo {
+    padding: 10px 5px;
+}
+
+.historyInfo span {
+    color: rgb(160, 160, 160);
+    float: right;
+}
+
+.historyInfoEdit {
+    float: right;
+    margin: 0 0 0 20px;
+}
+
+.historyInfoEdit a {
+    display: block;
+    padding: 10px 0;
+}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block subheader %}
+{% include 'employees/header.html' %}
+{% endblock %}
+{% block content %}
+{% include 'employees/info.html' %}
+<div class="employeeHistory">
+    <div class="historySection">
+        <h1>{{ item.capitalize }}: {{ count }}</h1>
+        <ol>
+            {% for object in objects %}
+                {% include 'employees/item.html' %}
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+<div class="clear"></div>
+{% include 'pagination.html' %}
+{% endblock %}

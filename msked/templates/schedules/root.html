@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="lab">
+    <div class="mainLab">
+        <div class="reject">
+            {% for station in reject %}
+                {% include 'stations/station.html' %}
+            {% endfor %}
+        </div>
+        <div class="stations leftStations">
+            {% for station in left %}
+                {% include 'stations/station.html' %}
+            {% endfor %}
+        </div>
+        <div class="divider"></div>
+        <div class="stations rightStations">
+            {% for station in right %}
+                {% include 'stations/station.html' %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="wetCopies">
+        {% for station in wet_copies %}
+            {% include 'stations/station.html' %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

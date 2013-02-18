@@ -1,0 +1,23 @@
+<div class="employeeSingle">
+    <a href="{% url employees.views.detail employee.slug %}" class="employeeLink"></a>
+    <div class="employeeSingleName">
+        {{ employee.last_name }}, {{ employee.first_name }}
+    </div>
+    <div class="employeeSingleStats">
+        <div>
+            <p class="employeeSingleLabel">Lab Tier:</p>
+            <p class="employeeSingleData">{{ employee.tier_lab }}</p>
+            <div class="clear"></div>
+        </div>
+        <div>
+            <p class="employeeSingleLabel">Location:</p> 
+            <p class="employeeSingleData">{{ employee.current_location }}</p>
+            <div class="clear"></div>
+        </div>
+        <div>
+            <p class="employeeSingleLabel">Last Job:</p> 
+            <p class="employeeSingleData">{{ employee.current_job }}</p>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

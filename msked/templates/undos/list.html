@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="undos">
+    <ol>
+        {% for undo in objects %}
+            {% include 'undos/undo.html' %}
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+.pagination {
+    font-size: 13px;
+    height: 36px;
+    padding: 20px 0;
+}
+
+.pagination ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.pagination li:first-child a {
+    border-left-width: 1px;
+}
+
+.pagination a {
+    border: 1px solid rgb(200, 200, 200);
+}
+
+.pagination a, .falsePage p {
+    border-left-width: 0px;
+    float: left;
+    line-height: 14px;
+    padding: 10px 15px;
+}
+
+.falsePage p {
+    border: 1px solid transparent;
+    border-right: 1px solid rgb(200, 200, 200);
+}
+
+.current a {
+    color: rgb(160, 160, 160);
+    cursor: default;
+}
+
+.current a, .pagination a:hover {
+    background: rgb(240, 240, 240);
+}

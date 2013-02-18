@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Error</title>
+	<link rel="shortcut icon" href="http://mques.com/assets/favicon.png">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<style type="text/css">
+		body {
+			color: rgb(40, 40, 40);
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			margin: 0;
+		}
+		.header {
+			background: rgb(37, 141, 200);
+			height: 45px;
+			width: 100%;
+		}
+		.header .logo {
+			float: left;
+			margin: 0 0 0 10px;
+		}
+		.header .logo a {
+			display: block;
+			padding: 2px 20px 2px 20px;
+			height: 41px;
+			width: 254px;
+		}
+		.logo img {
+			border: none;
+			height: 41px;
+			width: 254px;
+		}
+		.dialog {
+			margin: 40px auto;
+			width: 500px;
+		}
+		h1 {
+			font-size: 28px;
+			font-weight: 300;
+			margin: 0 0 20px 0;
+		}
+		p {
+			font-size: 14px;
+			margin: 0 0 15px 0;
+		}
+		a {
+			color: rgb(48, 157, 207);
+			text-decoration: none;
+		}
+		.return {
+			position: relative;
+			text-align: right;
+			top: 40px;
+		}
+		.return a {
+			background: rgb(99, 182, 219);
+			color: rgb(255, 255, 255);
+			font-size: 16px;
+			padding: 10px 20px;
+		}
+	</style>
+	<script>
+		$(document).ready(function() {
+			var email = "mailto:quantumventuress@gmail.com";
+			var subject = "Error";
+			var body = window.location.pathname;
+			var subject = email + "?subject=" + subject + "&body=" + body;
+			$('.email').attr('href', subject);
+		})
+	</script>
+</head>
+<body>
+	<div class="header">
+		<div class="logo">
+			<a href="http://mques.com">
+				<img src="http://s3.amazonaws.com/mqueststatic/logo_pain.png">
+			</a>
+		</div>
+	</div>
+	<div class="dialog">
+		<h1>Something Unusual Happened</h1>
+		<p>You discovered an error.</p>
+		<p>Please click <a href="" class="email">quantumventuress@gmail.com</a> and send the email.</p>
+		<p>Thank you for your help.</p>
+		<div class="return">
+			<a href="http://msked.com">
+				Return to MSked
+			</a>
+		</div>
+	</div>
+</body>
+</html>

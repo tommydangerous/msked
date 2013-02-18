@@ -1,0 +1,31 @@
+{% if objects and objects.paginator.num_pages > 1 %}
+<div class="pagination">
+    <ul>
+        {% if objects.has_previous %}
+            <li>
+                <a href="?page={{ objects.previous_page_number }}{% if q %}&q={{ q }}{% endif %}">
+                    &#8592 Prev
+                </a>
+            </li>
+        {% endif %}
+        {% for page in objects.page_range %}
+            {% if not page %}
+                <li class="falsePage"><p>...</p></li>
+            {% else %}
+                <li {% if page == objects.number %}class="current"{% endif %}>
+                    <a href="?page={{ page }}{% if q %}&q={{ q }}{% endif %}">
+                        {{ page }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if objects.has_next %}
+            <li>
+                <a href="?page={{ objects.next_page_number }}{% if q %}&q={{ q }}{% endif %}">
+                    Next &#8594
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}

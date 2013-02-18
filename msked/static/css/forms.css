@@ -1,0 +1,107 @@
+/* Center forms */
+.centerForm {
+    margin: 40px auto 0 auto;
+    width: 400px;
+}
+
+.centerForm .facebookAuth {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.or {
+    color: rgb(160, 160, 160);
+    font-size: 28px;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.centerForm .action {
+    text-align: right;
+}
+
+/* Forms */
+.field {
+    margin: 0 0 15px 0;
+}
+
+.field p {
+    font-size: 14px;
+    margin: 0 0 8px 0;
+}
+
+.field input, .field select, .field textarea {
+    border: 1px solid rgb(200, 200, 200);
+    color: rgb(40, 40, 40);
+    font-family: "Helvetica, Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.field input, .field select, .field textarea {
+    width: 400px;
+}
+
+.field textarea {
+    height: 70px;
+    resize: none;
+    vertical-align: bottom;
+}
+
+.field input:hover, .field select:hover, .field textarea:hover {
+    border: 1px solid rgb(160, 160, 160);
+}
+
+.field input:focus, .field select:focus, .field textarea:focus {
+    border: 1px solid rgb(63, 171, 218);
+    outline: none;
+}
+
+.action {
+    margin: 20px 0 0 0;
+}
+
+.action input, .action a {
+    border: none;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 10px 20px;
+}
+
+.action input {
+    background: rgb(63, 171, 218);
+    color: rgb(255, 255, 255);
+}
+
+.action a {
+    background: rgb(200, 200, 200);
+    color: rgb(40, 40, 40);
+    margin: 0 0 0 5px;
+}
+
+.action input:hover, .action input:focus {
+    background: rgb(73, 181, 228);
+    cursor: pointer;
+    outline: none;
+}
+
+.action a:hover {
+    background: rgb(210, 210, 210);
+    color: rgb(40, 40, 40);
+    text-decoration: none;
+}
+
+/* Error list */
+.errorlist {
+    color: rgb(255, 26, 0);
+    font-family: "Helvetica, Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    list-style-type: none;
+    margin: 0 0 5px 0;
+    padding: 0;
+}

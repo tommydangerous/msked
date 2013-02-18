@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="field">
+            <p>{{ field.label }}</p>
+            {{ field.errors }}
+            {{ field }}
+        </div>
+    {% endfor %}
+    <div class="action">
+        <input type="submit" value="Submit">
+        {% if employee.pk %}
+            <a href="{% url employees.views.detail employee.slug %}">
+                Cancel
+            </a>
+        {% else %}
+            <a href="{% url employees.views.list %}">
+                Cancel
+            </a>
+        {% endif %}
+    </div>
+</form>
+{% endblock %}

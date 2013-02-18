@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block subheader %}
+<header class="subHeader">
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url schedules.views.placement schedule.pk %}">
+                    Switch Locations
+                </a>
+            </li>
+            <li>
+                <a href="{% url schedules.views.task schedule.pk %}">
+                    Set Jobs
+                </a>
+            </li>
+            <li>
+                <a href="{% url schedules.views.assignment schedule.pk %}">
+                    Assign Seating
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+{% endblock %}
+{% block content %}
+<div class="schedule">
+    <div class="locations">
+        <h1>Locations</h1>
+        {% for location in locations %}
+            <div class="location">
+                <h2>{{ location }}</h2>
+                <ol>
+                    {% for employee in location.current_employees %}
+                        <li>
+                            <a href="{% url employees.views.detail employee.slug %}">
+                                {{ employee }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="jobs">
+        <h1>Jobs</h1>
+        {% for job in jobs %}
+            <div class="job">
+                <h2>{{ job }}</h2>
+                <ol>
+                    {% for employee in job.current_employees %}
+                        <li>
+                            <a href="{% url employees.views.detail employee.slug %}">
+                                {{ employee }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="clear"></div>
+</div>
+{% endblock %}

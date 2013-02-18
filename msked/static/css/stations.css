@@ -1,0 +1,51 @@
+.station {
+    background: rgb(240, 240, 240);
+    margin: 0 0 20px 0;
+    height: 100px;
+}
+
+.stations .station:last-child {
+    margin: 0;
+}
+
+.station h1 {
+    color: rgb(120, 120, 120);
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0;
+    padding: 42px 0;
+    position: absolute;
+    text-align: center;
+    z-index: 0;
+}
+
+.seat {
+    height: 50px;
+    width: 50%;
+}
+
+.seat.odd {
+    float: left;
+}
+
+.seat.even {
+    float: right;
+    text-align: right;
+}
+
+.seat a {
+    display: block;
+    font-size: 13px;
+    line-height: 16px;
+    height: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+.seat.top a {
+    padding: 10px 10px 24px 10px;
+}
+
+.seat.bottom a {
+    padding: 24px 10px 10px 10px;
+}

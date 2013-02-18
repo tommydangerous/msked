@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>
+        {% block title %}Millenium Schedule{% endblock %}
+    </title>
+    {% load static %}
+    {% get_static_prefix as static %}
+    <link rel="icon" type="image/ico" href="{{ static }}img/favicon.ico">
+    {% include 'stylesheet.html' %}
+    {% include 'javascript.html' %}
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            {% include 'header.html' %}
+        </header>
+        {% block subheader %}{% endblock %}
+        {% include 'messages.html' %}
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    {% include 'footer.html' %}
+    <div class="confirmDelete" title="Are you sure?"></div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="centerForm">
+    <div class="loginLogo">
+        <img src="{{ static }}img/logo_main.png">
+    </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next|escape }}">
+        <div class="field">
+            <p>Email</p>
+            <input type="text" name="email" value="{{ email }}">
+        </div>
+        <div class="field">
+            <p>Password</p>
+            <input type="password" name="password">
+        </div>
+        <div class="action">
+            <input type="submit" value="Login">
+        </div>
+    </form>
+</div>
+{% endblock %}

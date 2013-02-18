@@ -1,0 +1,24 @@
+<li>
+    <div class="historyInfoEdit">
+            {% if object.job %}
+                <a href="{% url tasks.views.edit object.pk %}">
+            {% elif object.location %}
+                <a href="{% url placements.views.edit object.pk %}">
+            {% elif object.seat %}
+                <a href="{% url assignments.views.edit object.pk %}">
+            {% endif %}
+            Edit
+        </a>
+    </div>
+    <div class="historyInfo">
+        {% if object.job %}
+            {{ object.job }}
+        {% elif object.location %}
+            {{ object.location }}
+        {% elif object.seat %}
+            {{ object.seat }}
+        {% endif %}
+        <span>{{ object.date_time }}</span>
+    </div>
+    <div class="clear"></div>
+</li>

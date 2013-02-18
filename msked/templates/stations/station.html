@@ -1,0 +1,13 @@
+<div class="station">
+    {% for seat in station.seats %}
+        <div class="seat{% if forloop.counter|divisibleby:'2' %} even{% else %} odd{% endif %}{% if forloop.counter >= 3 %} bottom{% else %} top{% endif %}">
+            {% if seat.current_employee %}
+                <a href="{% url employees.views.detail seat.current_employee.slug %}">
+                    {{ seat.current_employee }}
+                </a>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <h1>{{ station.name }}</h1>
+    <div class="clear"></div>
+</div>
