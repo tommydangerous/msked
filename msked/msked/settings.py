@@ -75,6 +75,22 @@ else:
 # URL that handles the media served from MEDIA_ROOT.
 MEDIA_URL = '/media/'
 
+# Memcache
+if not DEV:
+    import pylibmc
+    # Connect to memcache with config from environment variables
+    mc = pylibmc.Client(
+        servers=[os.environ.get('MEMCACHE_SERVERS')],
+        username=os.environ.get('MEMCACHE_USERNAME'),
+        password=os.environ.get('MEMCACHE_PASSWORD'),
+        binary=True
+    )
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
+        }
+    }
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
