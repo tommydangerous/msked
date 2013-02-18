@@ -1,9 +1,0 @@
-after opening
-8 seat 2 4
-7 seat 1
-
-entry
-6 seat 2 4
-
-sarah
-2 seat 2 4
