@@ -22,3 +22,4 @@ virtualenv==1.8.4
 newrelic
 pylibmc==1.2.2
 django-pylibmc-sasl==0.2.4
+dj-database-url
