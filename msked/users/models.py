@@ -20,6 +20,6 @@ def create_profile(sender, instance, **kwargs):
     except Profile.DoesNotExist:
         Profile.objects.create(slug=slugify(instance.username), user=instance)
 
-post_save.connect(create_profile, sender=User)
+# post_save.connect(create_profile, sender=User)
 
 User.profile = property(lambda u: u.profile_set.all()[0])
