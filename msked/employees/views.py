@@ -33,12 +33,14 @@ def list(request):
 def new(request):
     if request.method == 'POST':
         form = EmployeeForm(request.POST)
+        print '%s' % form.is_valid()
         if form.is_valid():
             employee = form.save()
             messages.success(request, 'Employee created')
             return HttpResponseRedirect(reverse('employees.views.detail', 
                 args=[employee.slug]))
-    form = EmployeeForm()
+    else:
+        form = EmployeeForm()
     d = {
         'form'    : form,
         'title'   : 'New Employee',
@@ -73,7 +75,8 @@ def edit(request, slug):
             messages.success(request, 'Employee updated')
             return HttpResponseRedirect(reverse('employees.views.detail', 
                 args=[employee.slug]))
-    form = EmployeeForm(instance=employee)
+    else:
+        form = EmployeeForm(instance=employee)
     d = {
         'employee': employee,
         'form'    : form,
