@@ -55,7 +55,7 @@
         </li>
         <li>
             <div class="employeeLabel">
-                Last Job:
+                Current Job:
             </div>
             <div class="employeeData">
                 {{ employee.current_job }}
@@ -69,5 +69,15 @@
                 {{ employee.current_seat }}
             </div>
         </li>
+        {% for work in employee.work_set.all %}
+            <li>
+                <div class="employeeLabel">
+                    Job Worked
+                </div>
+                <div class="employeeData">
+                    {{ work.job }}
+                </div>
+            </li>
+        {% endfor %}
     </ul>
 </div>

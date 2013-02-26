@@ -58,8 +58,10 @@ def assignment(request, pk):
 def placement(request, pk):
     """Create placement and set/switch locations for employees."""
     schedule = get_object_or_404(Schedule, pk=pk)
-    switch_placements(schedule)
-    messages.success(request, 'Placements switched')
+    if switch_placements(schedule):
+        messages.success(request, 'Placements switched')
+    else:
+        messages.error(request, 'Nothing was done, loop exceeded maximum')
     return HttpResponseRedirect(reverse('schedules.views.detail', 
         args=[schedule.pk]))
 

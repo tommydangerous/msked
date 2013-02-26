@@ -8,10 +8,14 @@ def tier_lab_sum(employees):
         except AttributeError:
             print 'AttributeError: tier_lab_sum()'
 
-def tier_lab_balance_check(employees, min_tier):
+def tier_balance(first, second):
     """Check to see if the employee tier levels are balanced."""
-    if tier_lab_sum(employees) > (min_tier - 4) and tier_lab_sum(
-            employees) < (min_tier + 4):
+    print ('-' * 10) + ' Tier Balance ' + ('-' * 10)
+    var   = (len(first) + len(second))/5
+    ratio = len(first)/float(len(second))
+    f_sum = tier_lab_sum(first)
+    s_sum = tier_lab_sum(second)
+    mtier = s_sum * ratio
+    print 'First Tier: %s, Second Tier: %s, Ratio: %s' % (f_sum, s_sum, ratio)
+    if f_sum >= mtier - var and f_sum <= mtier + var:
         return True
-    else:
-        return False

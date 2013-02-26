@@ -4,7 +4,7 @@ import os, socket
 # Check environment
 if os.environ.get('MYSITE_PRODUCTION', False):
     # production
-    DEBUG = TEMPLATE_DEBUG = False
+    DEBUG = TEMPLATE_DEBUG = True
     DEV = False
     COMPRESS_ENABLED = True
 else:
@@ -62,6 +62,8 @@ else:
 LANGUAGE_CODE = 'en-us'
 
 LOGIN_URL = '/login/'
+
+LOOP_MAX = 20
 
 MANAGERS = ADMINS
 
@@ -141,8 +143,9 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-# static file server
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+if not DEV:
+    # static file server
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 SITE_ID = 1
 

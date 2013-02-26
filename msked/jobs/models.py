@@ -2,6 +2,8 @@ from django.db import models
 from employees.models import Employee
 from teams.models import Team
 
+import itertools
+
 class Job(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     daily   = models.IntegerField(blank=True, null=True)
@@ -27,11 +29,20 @@ class Job(models.Model):
     def employees(self):
         return self.team.employee_set.filter(vacation=False)
 
+    def excludes(self):
+        ex = self.exclude_set.all()
+        teams = [e.team for e in ex]
+        emp = [t.employee_set.all() for t in teams]
+        emp = list(itertools.chain(*emp))
+        return emp
+
     def needed(self):
         if self.daily:
             return self.daily * 5
         elif self.weekly:
             return self.weekly
+        else:
+            return 0
 
     def scarcity(self):
         """Calculate how scarce eligible workers are for a job."""
@@ -40,33 +51,15 @@ class Job(models.Model):
         else:
             from excludes.models import Exclude
             employees = Employee.objects.exclude(vacation=True)
-            excludes = Exclude.objects.filter(job=None)
+            excludes  = Exclude.objects.filter(job=self)
             if excludes:
                 for exclude in excludes:
                     employees = employees.exclude(team=exclude.team)
-            employees = employees
         employees = len([e for e in employees if self.pk not in e.worked()])
         if self.weekly:
-            return employees/self.weekly
+            return float(employees)/self.weekly
         elif self.daily:
-            return employees/(self.daily * 5)
-
-    def scarcity_old(self):
-        """Calculate how scarce eligible workers are for a job."""
-        if self.team:
-            employees = self.team.employee_set.exclude(vacation=True).count()
-        else:
-            from excludes.models import Exclude
-            employees = Employee.objects.exclude(vacation=True)
-            excludes = Exclude.objects.filter(job=None)
-            if excludes:
-                for exclude in excludes:
-                    employees = employees.exclude(team=exclude.team)
-            employees = employees.count()
-        if self.weekly:
-            return employees/float(self.weekly)
-        elif self.daily:
-            return employees/float(self.daily * 5)
+            return float(employees)/(self.daily * 5)
 
     def save(self, *args, **kwargs):
         words = self.name.split(' ')

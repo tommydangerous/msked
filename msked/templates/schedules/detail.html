@@ -2,7 +2,7 @@
 {% block title %}{{ title }}{% endblock %}
 {% block subheader %}
 <header class="subHeader">
-    <nav>
+    <nav class="scheduleNav">
         <ul>
             <li>
                 <a href="{% url schedules.views.placement schedule.pk %}">
@@ -34,7 +34,13 @@
                     {% for employee in location.current_employees %}
                         <li>
                             <a href="{% url employees.views.detail employee.slug %}">
-                                {{ employee }}
+                                {% if employee.team.pk == 6 %}
+                                    <span class="red">
+                                        {{ employee }}
+                                    </span>
+                                {% else %}
+                                    {{ employee }}
+                                {% endif %}
                             </a>
                         </li>
                     {% endfor %}
@@ -51,7 +57,13 @@
                     {% for employee in job.current_employees %}
                         <li>
                             <a href="{% url employees.views.detail employee.slug %}">
-                                {{ employee }}
+                                {% if employee.team.pk == 6 %}
+                                    <span class="red">
+                                        {{ employee }}
+                                    </span>
+                                {% else %}
+                                    {{ employee }}
+                                {% endif %}
                             </a>
                         </li>
                     {% endfor %}

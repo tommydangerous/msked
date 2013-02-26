@@ -19,7 +19,7 @@ def list(request):
     else:
         all_emp = Employee.objects.all().order_by('last_name')
     emp_count = all_emp.count()
-    employees = page(request, all_emp, 10)
+    employees = page(request, all_emp, 20)
     d = {
         'emp_count': emp_count,
         'objects'  : employees,
@@ -101,7 +101,7 @@ def history(request, slug, item):
         'count'   : objects.count(),
         'employee': employee,
         'item'    : item,
-        'objects' : page(request, objects, 10),
+        'objects' : page(request, objects, 20),
         'title'   : "%s's %s" % (employee.first_name, item.capitalize()),
         'url'     : url,
     }
@@ -122,7 +122,7 @@ def notes(request, slug):
         'count'   : all_notes.count(),
         'employee': employee,
         'item'    : item,
-        'objects' : page(request, all_notes, 10),
+        'objects' : page(request, all_notes, 20),
         'q'       : q,
         'title'   : '%s Notes' % employee.first_name,
     }

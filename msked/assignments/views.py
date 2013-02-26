@@ -22,7 +22,8 @@ def new(request, slug):
             messages.success(request, 'Assignment created')
             return HttpResponseRedirect(reverse('employees.views.history', 
                 kwargs={ 'slug': employee.slug, 'item': item }))
-    form = AssignmentForm()
+    else:
+        form = AssignmentForm()
     d = {
         'employee': employee,
         'form'    : form,
@@ -43,7 +44,8 @@ def edit(request, pk):
             messages.success(request, 'Assignment updated')
             return HttpResponseRedirect(reverse('employees.views.history', 
                 kwargs={ 'slug': assignment.employee.slug, 'item': item }))
-    form = AssignmentEditForm(instance=assignment)
+    else:
+        form = AssignmentEditForm(instance=assignment)
     d = {
         'employee': assignment.employee,
         'form'    : form,

@@ -30,3 +30,6 @@ class Placement(models.Model):
         time = self.created.strftime('%I:%M')
         ampm = self.created.strftime('%p').lower()
         return '%s - %s%s' % (date, time, ampm)
+
+    def team(self):
+        return self.employee.team

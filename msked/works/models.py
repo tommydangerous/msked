@@ -13,3 +13,6 @@ class Work(models.Model):
 
     def __unicode__(self):
         return '%s: %s' % (self.job, self.employee)
+
+    def current_location(self):
+        return self.employee.current_location()

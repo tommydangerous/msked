@@ -1,7 +1,8 @@
 from collections import defaultdict
+from django.conf import settings
 from django.db.models import Q
 from employees.models import Employee
-from employees.utils import tier_lab_sum, tier_lab_balance_check
+from employees.utils import tier_lab_sum, tier_balance
 from random import shuffle
 from tasks.utils import task_check
 from undos.models import Undo
@@ -9,8 +10,6 @@ from works.utils import work_check
 
 def set_placements(schedule):
     employees = list(schedule.employees())
-    # the tier lab sum of all employees
-    total_tier = sum([e.tier_lab for e in employees])
     # work locations for this schedule
     locations = sorted(schedule.locations(), 
         key=lambda l: l.occupancy, reverse=True)
@@ -20,33 +19,43 @@ def set_placements(schedule):
         location_dict[location] = []
     # if schedule has at least 1 location with an occupancy number
     if locations and locations[0].occupancy:
-        # minimum tier level required for first work location
-        min_tier = locations[0].occupancy/float(len(employees)) * total_tier
+        first_loc  = locations[0]
+        second_loc = locations[1]
+        # separate location exclusive employees
+        exl_emp = first_loc.exclusive_employees()
+        exl_pks = [e.pk for e in exl_emp]
+        employees = [e for e in employees if e.pk not in exl_pks]
+        balanced     = False
         loop_counter = 0
-        loop_max = 1000
+        loop_max     = settings.LOOP_MAX
+        work_check(schedule)
         # keep shuffling until the tier levels are balanced in all locations
-        # or until the script has looped over itself 10,000 times
-        while not location_dict[locations[0]] or not tier_lab_balance_check(
-                location_dict[locations[0]], 
-                    min_tier) and loop_counter < loop_max:
+        # or until the script has looped over itself 1000 times
+        while not location_dict[first_loc] and not balanced and (
+            loop_counter < loop_max):
             shuffle(employees)
-            temp = task_check(schedule, employees[:locations[0].occupancy], 
-                employees[locations[0].occupancy:])
+            needed = first_loc.occupancy - len(exl_emp)
+            first_emp  = employees[:needed]
+            second_emp = employees[needed:]
+            temp = task_check(schedule, first_emp, second_emp)
             if temp:
-                location_dict[locations[0]] = temp[0]
-                location_dict[locations[1]] = temp[1]
+                location_dict[first_loc]  = temp[0] + exl_emp
+                location_dict[second_loc] = temp[1]
+                balanced = tier_balance(temp[0], temp[1])
             else:
                 loop_counter = loop_max
                 break
             loop_counter += 1
+            print 'Set placement loop counter: %s' % loop_counter
         if loop_counter < loop_max:
             for location in locations:
                 for employee in location_dict[location]:
                     # create employee placements for location
                     employee.placement_set.create(location=location)
                 Undo.objects.create(location=location)
-        print 'Loop counter: %s' % loop_counter
-        return loop_counter
+            return loop_counter
+        else:
+            return False
 
 def switch_placements(schedule):
     all_employees = Employee.objects.exclude(vacation=True)
@@ -61,9 +70,11 @@ def switch_placements(schedule):
         key=lambda l: l.occupancy, reverse=True)
     if len(locations) >= 2:
         # check to see if employees are placed at both locations
-        if not locations[0].current_employees() and not (
-                locations[1].current_employees()):
-            set_placements(schedule)
+        first_loc  = locations[0]
+        second_loc = locations[1]
+        if not first_loc.current_employees() and not (
+                second_loc.current_employees()):
+            return set_placements(schedule)
         else:
             # create dictionary with empty list for each location
             location_dict = defaultdict(list)
@@ -75,56 +86,47 @@ def switch_placements(schedule):
                 prev_dict[location] = (
                     [e for e in location.current_employees() if not (
                         e.vacation)])
-            employees = prev_dict[locations[0]] + prev_dict[locations[1]]
+            employees = prev_dict[first_loc] + prev_dict[second_loc]
             # check to see if any employees came back from vacation
             new_extra = [e for e in all_employees if e not in employees]
-            # the tier lab sum of all employees
-            total_tier = sum([e.tier_lab for e in employees])
             for employee in new_extra:
                 if employee.current_location():
                     # place them at their last worked location
                     prev_dict[employee.current_location].append(employee)
                 else:
                     # place them in the second location
-                    prev_dict[locations[1]].append(employee)
-            if locations[0].occupancy:
-                # minimum tier level required for first work location
-                min_tier = locations[0].occupancy/float(len(
-                    employees)) * total_tier
+                    prev_dict[second_loc].append(employee)
+            if first_loc.occupancy:
+                balanced     = False
                 loop_counter = 0
-                loop_max = 1000
+                loop_max     = settings.LOOP_MAX
                 # check to see if there are enough employees left to
                 # work at each job for the week
                 work_check(schedule)
-                while not location_dict[locations[0]] or not (
-                    tier_lab_balance_check(location_dict[locations[0]], 
-                        min_tier)) and loop_counter < loop_max:
-                    # if first location employees are 
-                    # less than second location employees
-                    if locations[0].occupancy < len(prev_dict[locations[1]]):
-                        temp = task_check(schedule, prev_dict[locations[1]], 
-                            prev_dict[locations[0]])
-                        if temp:
-                            location_dict[locations[0]] = temp[1]
-                            location_dict[locations[1]] = temp[0]
-                        else:
-                            loop_counter = loop_max
-                            break
+                # separate location exclusive employees
+                exl_emp  = first_loc.exclusive_employees()
+                exl_pks  = [e.pk for e in exl_emp]
+                while not location_dict[first_loc] and not balanced and (
+                    loop_counter < loop_max):
+                    prev_femp = prev_dict[first_loc]
+                    prev_femp = [e for e in prev_femp if e.pk not in exl_pks]
+                    prev_semp = prev_dict[second_loc]
+                    temp = task_check(schedule, prev_femp, prev_semp)
+                    if temp:
+                        location_dict[first_loc]  = temp[0] + exl_emp
+                        location_dict[second_loc] = temp[1]
+                        balanced = tier_balance(temp[0], temp[1])
                     else:
-                        temp = task_check(schedule, prev_dict[locations[0]], 
-                            prev_dict[locations[1]])
-                        if temp:
-                            location_dict[locations[0]] = temp[0]
-                            location_dict[locations[1]] = temp[1]
-                        else:
-                            loop_counter = loop_max
-                            break
+                        loop_counter = loop_max
+                        break
                     loop_counter += 1
+                    print 'Switch placement loop counter: %s' % loop_counter
                 if loop_counter < loop_max:
                     for location in locations:
                         for employee in location_dict[location]:
                             # create employee placements for location
                             employee.placement_set.create(location=location)
                         Undo.objects.create(location=location)
-                print 'Switch placement loop counter: %s' % loop_counter
-                return loop_counter
+                    return loop_counter
+                else:
+                    return False

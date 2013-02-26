@@ -1,0 +1,152 @@
+--------------------
+[3] Wet Entry loop: 7
+Ratio: 2.0, New Ratio: 2.0, All Elig: 4
+Available: 2, Extra: 2, Need: 2
+--------------------
+[2] Rejects loop: 1
+Ratio: 2.0, New Ratio: 2.0, All Elig: 2
+Available: 1, Extra: 1, Need: 1
+--------------------
+[1] Wet Copies loop: 9
+Ratio: 2.6, New Ratio: 2.6, All Elig: 26
+Available: 15, Extra: 11, Need: 10
+--------------------
+[0] After Opening loop: 1
+Ratio: 7.0, New Ratio: 7.0, All Elig: 25
+Available: 7, Extra: 14, Need: 3
+--------------------
+
+---------- Ratio Change ----------
+After Opening, Ratio: 7.33333333333, New Ratio: 6.33333333333
+[3] Wet Entry loop: 1
+Ratio: 1.0, New Ratio: 1.0, All Elig: 2
+Available: 2, Extra: 0, Need: 2
+--------------------
+[2] Rejects loop: 1
+Ratio: 5.0, New Ratio: 5.0, All Elig: 5
+Available: 1, Extra: 4, Need: 1
+--------------------
+[1] Wet Copies loop: 1
+Ratio: 1.6, New Ratio: 1.6, All Elig: 16
+Available: 12, Extra: 4, Need: 10
+--------------------
+[0] After Opening loop: 1
+Ratio: 6.33333333333, New Ratio: 6.33333333333, All Elig: 22
+Available: 6, Extra: 13, Need: 3
+--------------------
+
+--------------------
+[3] Wet Entry loop: 1
+Ratio: 3.0, New Ratio: 3.0, All Elig: 6
+Available: 2, Extra: 4, Need: 2
+--------------------
+[2] Rejects loop: 2
+Ratio: 4.0, New Ratio: 4.0, All Elig: 4
+Available: 3, Extra: 1, Need: 1
+--------------------
+[1] Wet Copies loop: 1
+Ratio: 4.6, New Ratio: 4.6, All Elig: 46
+Available: 29, Extra: 17, Need: 10
+--------------------
+[0] After Opening loop: 1
+Ratio: 4.66666666667, New Ratio: 4.66666666667, All Elig: 19
+Available: 9, Extra: 5, Need: 3
+--------------------
+
+--------------------
+[3] Wet Entry loop: 10
+Ratio: 2.0, New Ratio: 2.0, All Elig: 4
+Available: 2, Extra: 2, Need: 2
+--------------------
+[2] Rejects loop: 1
+Ratio: 3.0, New Ratio: 3.0, All Elig: 3
+Available: 1, Extra: 2, Need: 1
+--------------------
+[1] Wet Copies loop: 1
+Ratio: 3.6, New Ratio: 3.6, All Elig: 36
+Available: 24, Extra: 12, Need: 10
+--------------------
+[0] After Opening loop: 1
+Ratio: 4.33333333333, New Ratio: 4.33333333333, All Elig: 16
+Available: 3, Extra: 10, Need: 3
+--------------------
+
+--------------------
+[3] Wet Entry loop: 1
+Ratio: 1.0, New Ratio: 1.0, All Elig: 2
+Available: 2, Extra: 0, Need: 2
+--------------------
+[2] Rejects loop: 4
+Ratio: 2.0, New Ratio: 2.0, All Elig: 2
+Available: 1, Extra: 1, Need: 1
+--------------------
+[1] Wet Copies loop: 19
+Ratio: 2.6, New Ratio: 2.6, All Elig: 26
+Available: 16, Extra: 10, Need: 10
+--------------------
+[0] After Opening loop: 1
+Ratio: 4.0, New Ratio: 4.0, All Elig: 13
+Available: 6, Extra: 6, Need: 3
+--------------------
+
+--------------------
+[3] Rejects loop: 1
+Ratio: 1.0, New Ratio: 1.0, All Elig: 1
+Available: 1, Extra: 0, Need: 1
+--------------------
+[2] Wet Copies loop: 1
+Ratio: 1.6, New Ratio: 1.6, All Elig: 16
+Available: 12, Extra: 4, Need: 10
+--------------------
+[1] Wet Entry loop: 2
+Ratio: 3.0, New Ratio: 3.0, All Elig: 6
+Available: 3, Extra: 3, Need: 2
+--------------------
+[0] After Opening loop: 7
+Ratio: 2.33333333333, New Ratio: 2.33333333333, All Elig: 10
+Available: 3, Extra: 4, Need: 3
+--------------------
+
+--------------------
+[3] Wet Entry loop: 3
+Ratio: 2.0, New Ratio: 2.0, All Elig: 4
+Available: 2, Extra: 2, Need: 2
+--------------------
+[2] After Opening loop: 6
+Ratio: 1.66666666667, New Ratio: 1.66666666667, All Elig: 7
+Available: 3, Extra: 2, Need: 3
+--------------------
+[1] Wet Copies loop: 1
+Ratio: 4.6, New Ratio: 4.6, All Elig: 46
+Available: 29, Extra: 17, Need: 10
+--------------------
+[0] Rejects loop: 1
+Ratio: 5.0, New Ratio: 5.0, All Elig: 5
+Available: 2, Extra: 3, Need: 1
+--------------------
+
+Loop Max (fixed)
+--------------------
+[3] Wet Entry loop: 2
+Ratio: 1.0, New Ratio: 1.0, All Elig: 2
+Available: 2, Extra: 0, Need: 2
+--------------------
+[2] After Opening loop: 46
+Ratio: 1.0, New Ratio: 1.0, All Elig: 4
+Available: 2, Extra: 1, Need: 3
+--------------------
+
+Loop Max (not fixed) - 43 weeks
+--------------------
+[3] After Opening loop: 11
+Ratio: 1.33333333333, New Ratio: 1.33333333333, All Elig: 4
+Available: 3, Extra: 1, Need: 3
+--------------------
+[2] Wet Copies loop: 1
+Ratio: 1.6, New Ratio: 1.6, All Elig: 16
+Available: 12, Extra: 4, Need: 10
+--------------------
+[1] Wet Entry loop: 23
+Ratio: 1.0, New Ratio: 1.0, All Elig: 4
+Available: 1, Extra: 1, Need: 2
+--------------------

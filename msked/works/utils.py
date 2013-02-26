@@ -6,7 +6,7 @@ def work_check(schedule):
     left to work at each job for the week.
     """
     jobs = schedule.jobs_by_scarcity()
-    print '-- Work Check --'
+    print ('-' * 10) + ' Work Check ' + ('-' * 10)
     for job in jobs:
         if job.team:
             eligible = job.employees()
@@ -16,8 +16,11 @@ def work_check(schedule):
             needed = job.daily * 5
         elif job.weekly:
             needed = job.weekly
-        available = [e for e in eligible if job.pk not in e.worked()]
-        print 'Job: %s, Available: %s' % (job, len(available))
+        # excluded employees from the job
+        ex_pks = [e.pk for e in job.excludes()]
+        available = [e for e in eligible if job.pk not in e.worked(
+            ) and e.pk not in ex_pks]
+        print '%s, Available: %s' % (job, len(available))
         if len(available) < needed:
 #            for employee in available:
                 # create require for employees who have not worked
@@ -29,3 +32,4 @@ def work_check(schedule):
                     work.delete()
                 except ObjectDoesNotExist:
                     pass
+            print '%s work cleared' % job
