@@ -18,6 +18,18 @@ class Location(models.Model):
             ) and e.current_location().pk == self.pk]
         return sorted(employees, key=lambda e: e.last_name)
 
+    def employees_working_here(self):
+        """
+        Return employees working in this location
+        (updated of current_employees).
+        """
+        from employees.models import Employee
+        placements = self.placement_set.order_by('-created')[:self.occupancy]
+        employees  = [p.employee for p in placements if (
+            p.employee.current_location() and p.employee.current_location(
+                ) == self)]
+        return sorted(employees, key=lambda x: x.last_name)
+
     def exclusive_employees(self):
         if self.teams():
             emp = [t.employee_set.all() for t in self.teams()]

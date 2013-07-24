@@ -13,27 +13,12 @@ from tasks.utils import set_task
 import json
 
 @login_required
-def root(request):
-    schedule = Schedule.objects.all().order_by('created')[0]
-    location = schedule.locations_by_occupancy()[0]
-    stations = location.stations()
-    if len(stations) > 8:
-        max_station = 8
-    else:
-        max_station = len(stations)
-    left  = sorted(stations[6:max_station], 
-        key=lambda s: s.name, reverse=True)
-    right = sorted(stations[:6], key=lambda s: s.name, reverse=True)
-    reject = [s for s in stations if s.name == 'Rejects']
-    wet_copies = [s for s in stations if s.name == 'Wet Copies']
-    d = {
-        'left'      : left,
-        'right'     : right,
-        'reject'    : reject,
-        'wet_copies': wet_copies,
-    }
-    return render_to_response('schedules/root.html', d, 
-        context_instance=RequestContext(request))
+def assignment(request, pk):
+    """Create assignment for station seating for employees."""
+    schedule = get_object_or_404(Schedule, pk=pk)
+    assign_seating(schedule)
+    messages.success(request, 'Seating assigned')
+    return HttpResponseRedirect(reverse('root_path'))
 
 @login_required
 def detail(request, pk):
@@ -72,8 +57,10 @@ def jobs(request, pk):
 def locations(request, pk):
     """Return ajax locations for schedule."""
     schedule = get_object_or_404(Schedule, pk=pk)
+    # [(location, employees), (location, employees)]
+    groups = [(l, l.employees_working_here()) for l in schedule.locations()]
     d = {
-        'locations': schedule.locations(),
+        'locations': groups,
     }
     locations = loader.get_template('schedules/locations.html')
     context   = RequestContext(request, d)
@@ -81,14 +68,6 @@ def locations(request, pk):
         'locations': locations.render(context),
     }
     return HttpResponse(json.dumps(data), mimetype='application/json')
-
-@login_required
-def assignment(request, pk):
-    """Create assignment for station seating for employees."""
-    schedule = get_object_or_404(Schedule, pk=pk)
-    assign_seating(schedule)
-    messages.success(request, 'Seating assigned')
-    return HttpResponseRedirect(reverse('root_path'))
 
 @login_required
 def placement(request, pk):
@@ -100,6 +79,29 @@ def placement(request, pk):
         messages.error(request, 'Nothing was done, loop exceeded maximum')
     return HttpResponseRedirect(reverse('schedules.views.detail', 
         args=[schedule.pk]))
+
+@login_required
+def root(request):
+    schedule = Schedule.objects.all().order_by('created')[0]
+    location = schedule.locations_by_occupancy()[0]
+    stations = location.stations()
+    if len(stations) > 8:
+        max_station = 8
+    else:
+        max_station = len(stations)
+    left  = sorted(stations[6:max_station], 
+        key=lambda s: s.name, reverse=True)
+    right = sorted(stations[:6], key=lambda s: s.name, reverse=True)
+    reject = [s for s in stations if s.name == 'Rejects']
+    wet_copies = [s for s in stations if s.name == 'Wet Copies']
+    d = {
+        'left'      : left,
+        'right'     : right,
+        'reject'    : reject,
+        'wet_copies': wet_copies,
+    }
+    return render_to_response('schedules/root.html', d, 
+        context_instance=RequestContext(request))
 
 @login_required
 def task(request, pk):

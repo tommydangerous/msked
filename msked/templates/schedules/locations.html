@@ -1,8 +1,8 @@
-{% for location in locations %}
+{% for location, employees in locations %}
   <div class="location">
     <h2>{{ location }}</h2>
     <ol>
-      {% for employee in location.current_employees %}
+      {% for employee in employees %}
         <li>
           <a href="{% url employees.views.detail employee.slug %}">
             {% if employee.team.pk == 6 %}
