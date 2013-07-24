@@ -6,7 +6,10 @@ from employees.models import Employee
 
 import csv
 
-with open('employees.csv', 'rb') as f:
+file_name = 'employees.csv'
+if not settings.DEV:
+   file_name = '%s/%s' % (settings.project_name, file_name)
+with open(file_name, 'rb') as f:
    reader = csv.reader(f)
    for row in reader:
       names = row[0].split(' ')
