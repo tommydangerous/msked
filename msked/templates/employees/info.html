@@ -1,83 +1,86 @@
 <div class="employee">
-    <h1 class="employeeName">
-        <a href="{% url employees.views.detail employee.slug %}">
-            {{ employee.first_name }} {{ employee.last_name }}
-        </a>
-    </h1>
-    <ul class="employeeStats">
-        <li>
-            <div class="employeeLabel">
-                Lab Tier:
-            </div>
-            <div class="employeeData">
-                {{ employee.tier_lab }}
-            </div>
-        </li>
-        <li>
-            <div class="employeeLabel">
-                Office Tier:
-            </div>
-            <div class="employeeData">
-                {{ employee.tier_office }}
-            </div>
-        </li>
-        <li>
-            <div class="employeeLabel">
-                Team:
-            </div>
-            <div class="employeeData">
-                {{ employee.team }}
-            </div>
-        </li>
-        <li>
-            <div class="employeeLabel">
-                Floater:
-            </div>
-            <div class="employeeData">
-                {{ employee.floater }}
-            </div>
-        </li>
-        <li>
-            <div class="employeeLabel">
-                Vacation:
-            </div>
-            <div class="employeeData">
-                {{ employee.vacation }}
-            </div>
-        </li>
-        <li>
-            <div class="employeeLabel">
-                Location:
-            </div>
-            <div class="employeeData">
-                {{ employee.current_location }}
-            </div>
-        </li>
-        <li>
-            <div class="employeeLabel">
-                Current Job:
-            </div>
-            <div class="employeeData">
-                {{ employee.current_job }}
-            </div>
-        </li>
-        <li>
-            <div class="employeeLabel">
-                Seat
-            </div>
-            <div class="employeeData">
-                {{ employee.current_seat }}
-            </div>
-        </li>
-        {% for work in employee.work_set.all %}
-            <li>
-                <div class="employeeLabel">
-                    Job Worked
-                </div>
-                <div class="employeeData">
-                    {{ work.job }}
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+  <h1 class="employeeName">
+    <a href="{% url employees.views.detail employee.slug %}">
+      {{ employee.first_name }} {{ employee.last_name }}
+    </a>
+  </h1>
+  <div class='employeeImage'>
+    <img src='{{ employee.photo }}'>
+  </div>
+  <ul class="employeeStats">
+    <li>
+      <div class="employeeLabel">
+        Lab Tier:
+      </div>
+      <div class="employeeData">
+        {{ employee.tier_lab }}
+      </div>
+    </li>
+    <li>
+      <div class="employeeLabel">
+        Office Tier:
+      </div>
+      <div class="employeeData">
+        {{ employee.tier_office }}
+      </div>
+    </li>
+    <li>
+      <div class="employeeLabel">
+        Team:
+      </div>
+      <div class="employeeData">
+        {{ employee.team }}
+      </div>
+    </li>
+    <li>
+      <div class="employeeLabel">
+        Floater:
+      </div>
+      <div class="employeeData">
+        {{ employee.floater }}
+      </div>
+    </li>
+    <li>
+      <div class="employeeLabel">
+        Vacation:
+      </div>
+      <div class="employeeData">
+        {{ employee.vacation }}
+      </div>
+    </li>
+    <li>
+      <div class="employeeLabel">
+        Location:
+      </div>
+      <div class="employeeData">
+        {{ employee.current_location }}
+      </div>
+    </li>
+    <li>
+      <div class="employeeLabel">
+        Current Job:
+      </div>
+      <div class="employeeData">
+        {{ employee.current_job }}
+      </div>
+    </li>
+    <li>
+      <div class="employeeLabel">
+        Seat
+      </div>
+      <div class="employeeData">
+        {{ employee.current_seat }}
+      </div>
+    </li>
+    {% for work in employee.work_set.all %}
+      <li>
+        <div class="employeeLabel">
+          Job Worked
+        </div>
+        <div class="employeeData">
+          {{ work.job }}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
 </div>

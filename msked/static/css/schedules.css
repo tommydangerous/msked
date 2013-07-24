@@ -1,89 +1,76 @@
-/* root */
+/* Root */
 .lab {
-    min-width: 1440px;
-}
+  min-width: 1440px; }
 
 .lab div, .seat a {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
 
 .mainLab {
-    float: left;
-}
+  float: left; }
 
 .reject .station {
-    margin: 0 auto 20px auto;
-}
+  margin: 0 auto 20px auto; }
 
 .wetCopies {
-    float: left;
-    right: 100px;
-    position: relative;
-    top: 115px;
-    -webkit-transform: rotate(90deg);
-    -khtml-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-}
+  float: left;
+  right: 100px;
+  position: relative;
+  top: 115px;
+  -webkit-transform: rotate(90deg);
+  -khtml-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg); }
 
 .leftStations {
-    float: left;
-}
+  float: left; }
 
 .rightStations {
-    float: left;
-}
+  float: left; }
 
 .divider {
-    background: rgb(230, 230, 230);
-    float: left;
-    height: 700px;
-    margin: 0 20px;
-}
+  background: #e6e6e6;
+  float: left;
+  height: 700px;
+  margin: 0 20px; }
 
 .divider, .station {
-    border: 1px solid rgb(200, 200, 200);
-}
+  border: 1px solid #c8c8c8; }
 
 .divider, .station, .station h1 {
-    width: 350px;
-}
+  width: 350px; }
 
-/* detail */
-.schedule h1 {
-    font-size: 24px;
-    margin: 0 0 5px 0;
-}
-
+/* Detail */
 .schedule h1, .schedule h2 {
-    font-weight: 300;
-    text-align: center;
-}
-
+  border-bottom: 1px solid #c8c8c8;
+  font-weight: 300;
+  padding: 0 0 10px 0;
+  text-align: center; }
+.schedule h1 {
+  font-size: 27px;
+  line-height: 36px;
+  margin: 0 0 10px 0; }
 .schedule h2 {
-    font-size: 14px;
-    margin: 0 0 10px 0;
-}
-
+  font-size: 18px;
+  line-height: 27px;
+  margin: 0 0 10px 0; }
 .schedule ol {
-    font-size: 14px;
-    margin: 0;
-    padding: 0 0 0 30px;
-}
-
-.locations {
-    float: left;
-}
-
-.location, .job {
-    float: left;
-    padding: 10px;
-}
-
-.jobs {
-    float: right;
-}
+  font-size: 14px;
+  margin: 0;
+  padding: 0 0 0 30px; }
+.schedule .locations {
+  float: left; }
+.schedule .jobs {
+  float: right; }
+  .schedule .jobs .weeklyJobs {
+    float: left; }
+    .schedule .jobs .weeklyJobs .job {
+      float: none; }
+  .schedule .jobs .dailyJobs {
+    float: right; }
+.schedule .location, .schedule .job {
+  float: left;
+  padding: 10px; }

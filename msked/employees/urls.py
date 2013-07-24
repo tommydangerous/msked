@@ -7,4 +7,5 @@ urlpatterns = patterns('employees.views',
     url(r'^(?P<slug>[-\w]+)/edit/$', 'edit'),
     url(r'^(?P<slug>[-\w]+)/(?P<item>jobs|locations|seats)/$', 'history'),
     url(r'^(?P<slug>[-\w]+)/notes/$', 'notes'),
+    url(r'^(?P<slug>[-\w]+)/timeline/$', 'timeline'),
 )

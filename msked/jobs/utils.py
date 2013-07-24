@@ -23,6 +23,8 @@ def job_check(index, jobs, first, second, f_temp, s_temp, ratio=None):
         ratio = len(all_elig)/float(need)
     new_ratio = 0
     
+    # If the eligible employees is 3 times the amount needed for the week
+    # and the job has a daily number and pulls from the office
     if ratio >= 3 and job.daily:
         while avail < need and loop_counter < loop_max or (
             avail >= len(all_elig) - need and loop_counter < loop_max) or (
@@ -103,23 +105,44 @@ def job_check(index, jobs, first, second, f_temp, s_temp, ratio=None):
                     loop_counter = loop_max
                     break
         else:
-            while avail < need and loop_counter < loop_max or (
-                avail >= len(all_elig) and loop_counter < loop_max) or (
-                extra < need and loop_counter < loop_max):
+            if job.daily:
+                # Remaining after switch
+                ras = len(second) - len(first)
+                while (avail < need and loop_counter < loop_max) or (
+                    avail >= len(all_elig) and loop_counter < loop_max) or (
+                    extra < need - ras and loop_counter < loop_max):
 
-                d = job_loop(index, jobs, first, second, f_temp, s_temp, 
-                    all_elig, ex_pks, loop_counter, loop_max, need, ratio)
-                if d:
-                    avail        = d['avail']
-                    extra        = d['extra']
-                    loop_counter = d['loop_counter']
-                    new_ratio    = d['new_ratio']
-                    if new_ratio >= 1 and new_ratio <= 3 and math.fabs(
-                        int(new_ratio) - int(ratio)) >= 1:
+                    d = job_loop(index, jobs, first, second, f_temp, s_temp, 
+                        all_elig, ex_pks, loop_counter, loop_max, need, ratio)
+                    if d:
+                        avail        = d['avail']
+                        extra        = d['extra']
+                        loop_counter = d['loop_counter']
+                        new_ratio    = d['new_ratio']
+                        if new_ratio >= 1 and new_ratio <= 3 and math.fabs(
+                            int(new_ratio) - int(ratio)) >= 1:
+                            break
+                    else:
+                        loop_counter = loop_max
                         break
-                else:
-                    loop_counter = loop_max
-                    break
+            else:
+                while avail < need and loop_counter < loop_max or (
+                    avail >= len(all_elig) and loop_counter < loop_max) or (
+                    extra < need and loop_counter < loop_max):
+
+                    d = job_loop(index, jobs, first, second, f_temp, s_temp, 
+                        all_elig, ex_pks, loop_counter, loop_max, need, ratio)
+                    if d:
+                        avail        = d['avail']
+                        extra        = d['extra']
+                        loop_counter = d['loop_counter']
+                        new_ratio    = d['new_ratio']
+                        if new_ratio >= 1 and new_ratio <= 3 and math.fabs(
+                            int(new_ratio) - int(ratio)) >= 1:
+                            break
+                    else:
+                        loop_counter = loop_max
+                        break
 
     else:
         while avail < need and loop_counter < loop_max:
@@ -153,13 +176,23 @@ def job_check(index, jobs, first, second, f_temp, s_temp, ratio=None):
                 return False
         else:
             # remove eligible employees from the available pool
+            # used for calculating employees working in the lab
+            # e_pks  = eligible employees
+            # f_temp = remaining employees going into the lab
+            # s_temp = remaining employees going into the office 
             e_pks   = [e.pk for e in d['eligible']][:need]
             f_temp  = [e for e in d['f_temp'] if e.pk not in e_pks]
             s_temp  = [e for e in d['s_temp'] if e.pk not in e_pks]
             # remove eligible employees from the extra available pool
+            # used for calculating employees working in the office
+            # ee_pks  = extra eligible employees
+            # ef_temp = extra employees going into the lab
+            # es_temp = extra employees going into the office 
             ee_pks  = [e.pk for e in d['ext_elig']][:need]
-            ef_temp = [e for e in d['ef_temp'] if e.pk not in ee_pks]
-            es_temp = [e for e in d['es_temp'] if e.pk not in ee_pks]
+            ef_temp = d.get('ef_temp')
+            es_temp = d.get('es_temp')
+            # ef_temp = [e for e in d['ef_temp'] if e.pk not in ee_pks]
+            # es_temp = [e for e in d['es_temp'] if e.pk not in ee_pks]
             return (d['new_first'], d['new_second'], f_temp, s_temp, ef_temp, 
                 es_temp)
 
@@ -207,7 +240,7 @@ def job_loop(index, jobs, first, second, f_temp, s_temp, all_elig,
                 if temp_emp:
                     for e in temp_emp:
                         new_second.remove(e)
-
+        # If job needs new employees daily and pulls from the office
         elif job.daily:
             if len(second) >= len(first):
                 if len(work_emp_f) < need:
@@ -248,6 +281,7 @@ def job_loop(index, jobs, first, second, f_temp, s_temp, all_elig,
         else:
             loop_counter = loop_max
 
+    # If loop counter has not reached maximum loops
     if loop_counter < loop_max:
         if job.weekly:
             if job.team:
@@ -270,6 +304,7 @@ def job_loop(index, jobs, first, second, f_temp, s_temp, all_elig,
         avail = len(eligible)
         extra = len(ext_elig)
 
+        # Fixes something
         if len(all_elig) == need and len(jobs) != (index + 1):
             prev_job = jobs[index + 1]
             if prev_job.weekly:
@@ -292,7 +327,8 @@ def job_loop(index, jobs, first, second, f_temp, s_temp, all_elig,
                         work.delete()
                     except ObjectDoesNotExist:
                         pass
-                      
+
+        # If everything works out, return data and continue the job check
         if index < len(jobs) - 1 and loop_counter >= (
             (loop_max/(2 * ((len(jobs) - 1) - index))) - 1):
             if ratio < 2 and avail and avail < need:

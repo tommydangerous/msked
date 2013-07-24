@@ -8,7 +8,7 @@ class SeatInline(admin.TabularInline):
 
 class StationAdmin(admin.ModelAdmin):
     inlines       = [SeatInline]
-    list_display  = ['created', 'name', 'location', 'job']
+    list_display  = ('created', 'name', 'location', 'job', 'slug',)
     list_filter   = ['location']
     search_fields = ['name']
 

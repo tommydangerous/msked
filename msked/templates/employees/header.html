@@ -1,49 +1,53 @@
 <header class="subHeader">
-    <nav>
-        <ul>
-            <li>
-                {% if item == 'locations' %}
-                    <a href="{% url placements.views.new employee.slug %}">
-                        + Add
-                    </a>
-                {% elif item == 'jobs' %}
-                    <a href="{% url tasks.views.new employee.slug %}">
-                        + Add
-                    </a>
-                {% elif item == 'seats' %}
-                    <a href="{% url assignments.views.new employee.slug %}">
-                        + Add
-                    </a>
-                {% elif item == 'notes' %}
-                    <a href="{% url notes.views.new employee.slug %}">
-                        + Add
-                    </a>
-                {% else %}
-                    <a href="{% url employees.views.edit employee.slug %}">
-                        Edit
-                    </a>
-                {% endif %}
-            </li>
-            <li>
-                <a href="{% url employees.views.history employee.slug 'locations' %}">
-                    Locations
-                </a>
-            </li>
-            <li>
-                <a href="{% url employees.views.history employee.slug 'jobs' %}">
-                    Jobs
-                </a>
-            </li>
-            <li>
-                <a href="{% url employees.views.history employee.slug 'seats' %}">
-                    Seats
-                </a>
-            </li>
-            <li>
-                <a href="{% url employees.views.notes employee.slug %}">
-                    Notes
-                </a>
-            </li>
-        </ul>
-    </nav>
+  <nav>
+    <ul>
+      <li>
+        {% if item == 'locations' %}
+          <a href="{% url placements.views.new employee.slug %}">
+            + Add
+          </a>
+        {% elif item == 'jobs' %}
+          <a href="{% url tasks.views.new employee.slug %}">
+            + Add
+          </a>
+        {% elif item == 'seats' %}
+          <a href="{% url assignments.views.new employee.slug %}">
+            + Add
+          </a>
+        {% elif item == 'notes' %}
+          <a href="{% url notes.views.new employee.slug %}">
+            + Add
+          </a>
+        {% else %}
+          <a href="{% url employees.views.edit employee.slug %}">
+            Edit
+          </a>
+        {% endif %}
+      </li>
+      <li>
+        <a href='{% url employees.views.timeline employee.slug %}'>
+          Timeline
+        </a>
+      <li>
+        <a href="{% url employees.views.history employee.slug 'locations' %}">
+          Locations
+        </a>
+      </li>
+      <li>
+        <a href="{% url employees.views.history employee.slug 'jobs' %}">
+          Jobs
+        </a>
+      </li>
+      <li>
+        <a href="{% url employees.views.history employee.slug 'seats' %}">
+          Seats
+        </a>
+      </li>
+      <li>
+        <a href="{% url employees.views.notes employee.slug %}">
+          Notes
+        </a>
+      </li>
+    </ul>
+  </nav>
 </header>

@@ -1,18 +1,18 @@
 <div class="note">
-    <div class="noteContent">
-        {{ note.content|linebreaks }}
+  <div class="noteContent">
+    {{ note.content|linebreaks }}
+  </div>
+  <div class="noteBottom">
+    <div class="noteExtra">
+      {% if note.user.pk == user.pk %}
+        <a href="{% url notes.views.edit note.pk %}">
+          Edit
+        </a> |
+      {% endif %}
+      {{ note.user.first_name }} {{ note.user.last_name }}
     </div>
-    <div class="noteBottom">
-        <div class="noteExtra">
-            {% if note.user.pk == user.pk %}
-                <a href="{% url notes.views.edit note.pk %}">
-                    Edit
-                </a> |
-            {% endif %}
-            {{ note.user.first_name }} {{ note.user.last_name }}
-        </div>
-        <div class="noteInfo">
-            {{ note.updated_time }}
-        </div>
+    <div class="noteInfo">
+      {{ note.updated_time }}
     </div>
+  </div>
 </div>

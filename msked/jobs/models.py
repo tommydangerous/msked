@@ -16,14 +16,15 @@ class Job(models.Model):
 
     def current_employees(self):
         from tasks.models import Task
+        need = 0
         if self.daily:
             need = self.daily * 5
         elif self.weekly:
             need = self.weekly
-        else:
-            need = 0
-        tasks = Task.objects.filter(job=self).order_by('-created')[:need]
+        tasks = Task.objects.filter(job=self).order_by('created')[:need]
         employees = [t.employee for t in tasks]
+        if self.daily:
+            return employees
         return sorted(employees, key=lambda e: e.last_name)
 
     def employees(self):
@@ -35,6 +36,10 @@ class Job(models.Model):
         emp = [t.employee_set.all() for t in teams]
         emp = list(itertools.chain(*emp))
         return emp
+
+    def model(self):
+        """Return a string of the model's class."""
+        return 'job'
 
     def needed(self):
         if self.daily:

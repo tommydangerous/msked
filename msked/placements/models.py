@@ -31,5 +31,14 @@ class Placement(models.Model):
         ampm = self.created.strftime('%p').lower()
         return '%s - %s%s' % (date, time, ampm)
 
+    def model(self):
+        """Return string of model's class name."""
+        return 'placement'
+
     def team(self):
         return self.employee.team
+
+    def time(self):
+        time  = self.created.strftime('%I:%M').lstrip('0')
+        am_pm = self.created.strftime('%p').lower()
+        return time + am_pm

@@ -15,7 +15,7 @@ class EmployeeForm(ModelForm):
     class Meta:
         model  = Employee
         fields = ('first_name', 'last_name', 'tier_lab', 'tier_office', 
-            'team', 'floater', 'vacation')
+            'team', 'floater', 'vacation',)
 
     def clean_tier_office(self):
         tier = self.cleaned_data.get('tier_office')

@@ -9,6 +9,7 @@ class ExcludeInline(admin.TabularInline):
 class JobAdmin(admin.ModelAdmin):
     inlines = [ExcludeInline]
     list_display = ['pk', 'name', 'daily', 'weekly', 'team']
+    list_display_links = ('pk', 'name',)
     search_fields = ['name']
 
 admin.site.register(Job, JobAdmin)

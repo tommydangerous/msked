@@ -56,7 +56,10 @@ def edit(request, pk):
 
 @login_required
 def delete_all(request):
-    Placement.objects.all().delete()
-    messages.success(request, 'Placements deleted')
+    if request.user.is_superuser:
+        Placement.objects.all().delete()
+        messages.success(request, 'Placements deleted')
+    else:
+        messages.error(request, 'You cannot perform this function')
     return HttpResponseRedirect(reverse('schedules.views.detail', 
         args=[Schedule.objects.all()[0].pk]))

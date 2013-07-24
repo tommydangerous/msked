@@ -91,9 +91,12 @@ def edit(request, pk):
 
 @login_required
 def delete_all(request):
-    Require.objects.all().delete()
-    Task.objects.all().delete()
-    Work.objects.all().delete()
-    messages.success(request, 'Tasks deleted')
+    if request.user.is_superuser:
+        Require.objects.all().delete()
+        Task.objects.all().delete()
+        Work.objects.all().delete()
+        messages.success(request, 'Tasks deleted')
+    else:
+        messages.error(request, 'You cannot perform this function')
     return HttpResponseRedirect(reverse('schedules.views.detail', 
         args=[Schedule.objects.all()[0].pk]))

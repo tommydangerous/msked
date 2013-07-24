@@ -6,36 +6,36 @@
 {% block content %}
 {% include 'employees/info.html' %}
 <div class="employeeHistory">
-    <div class="historySection">
-        <a class="historySectionName" href="{% url employees.views.history employee.slug 'locations' %}">
-            Locations
-        </a>
-        <ol>
-            {% for object in placements %}
-                {% include 'employees/item.html' %}
-            {% endfor %}
-        </ol>
-    </div>
-    <div class="historySection">
-        <a class="historySectionName" href="{% url employees.views.history employee.slug 'jobs' %}">
-            Jobs
-        </a>
-        <ol>
-            {% for object in tasks %}
-                {% include 'employees/item.html' %}
-            {% endfor %}
-        </ol>
-    </div>
-    <div class="historySection">
-        <a class="historySectionName" href="{% url employees.views.history employee.slug 'seats' %}">
-            Seats
-        </a>
-        <ol>
-            {% for object in assignments %}
-                {% include 'employees/item.html' %}
-            {% endfor %}
-        </ol>
-    </div>
+  <div class="historySection">
+    <a class="historySectionName" href="{% url employees.views.history employee.slug 'locations' %}">
+      Locations
+    </a>
+    <ol>
+      {% for object in placements %}
+        {% include 'employees/item.html' %}
+      {% endfor %}
+    </ol>
+  </div>
+  <div class="historySection">
+    <a class="historySectionName" href="{% url employees.views.history employee.slug 'jobs' %}">
+      Jobs
+    </a>
+    <ol>
+      {% for object in tasks %}
+        {% include 'employees/item.html' %}
+      {% endfor %}
+    </ol>
+  </div>
+  <div class="historySection">
+    <a class="historySectionName" href="{% url employees.views.history employee.slug 'seats' %}">
+      Seats
+    </a>
+    <ol>
+      {% for object in assignments %}
+        {% include 'employees/item.html' %}
+      {% endfor %}
+    </ol>
+  </div>
 </div>
 <div class="clear"></div>
 {% endblock %}

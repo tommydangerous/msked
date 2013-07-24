@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block subheader %}
+{% include 'employees/header.html' %}
+{% endblock %}
+{% block content %}
+<div class='employees'>
+  <h1>
+    <a href='{% url employees.views.detail employee.slug %}'>
+      {{ employee.name }}
+    </a>
+  </h1>
+  <div class='timeline'>
+    {% for day, objects in days %}
+      <h1>{{ day }}</h1>
+      {% for object in objects %}
+        {% include 'employees/timeline_object.html' %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

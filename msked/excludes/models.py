@@ -10,7 +10,7 @@ class Exclude(models.Model):
     team     = models.ForeignKey(Team)
 
     class Meta:
-        unique_together = ('job', 'team')
+        unique_together = ('job', 'schedule', 'team',)
 
     def __unicode__(self):
         return '%s: %s' % (self.team, self.job)

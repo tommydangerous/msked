@@ -18,3 +18,12 @@ class Task(models.Model):
 
     def employee_pk(self):
         return self.employee.pk
+
+    def model(self):
+        """Return string of model's class name."""
+        return 'task'
+
+    def time(self):
+        time  = self.created.strftime('%I:%M').lstrip('0')
+        am_pm = self.created.strftime('%p').lower()
+        return time + am_pm

@@ -1,162 +1,143 @@
-/* employees */
-.employees h1, .employeeName {
-    font-size: 24px;
-    font-weight: 300;
-    margin: 0 0 20px 0;
-}
+/* Employees */
+.employeeName {
+  font-size: 27px;
+  font-weight: 300;
+  line-height: 36px;
+  margin: 0 0 20px 0; }
 
-.employees h1 a {
-    color: rgb(40, 40, 40);
-}
+.employees h1 {
+  font-size: 27px;
+  font-weight: 300;
+  line-height: 36px;
+  margin: 0 0 20px 0; }
+  .employees h1 a {
+    color: #282828; }
 
-/* search */
+/* Search box */
 #search {
-    float: right;
-}
+  float: right; }
+  #search .field, #search .action {
+    float: left; }
+  #search .field {
+    margin: 0; }
+    #search .field input {
+      font-size: 14px;
+      padding: 5px;
+      width: 200px; }
+  #search .action {
+    margin: 0 0 0 10px; }
+    #search .action input {
+      padding: 6px 10px; }
 
-#search .field, #search .action {
-    float: left;
-}
-
-#search .field {
-    margin: 0;
-}
-
-#search .field input {
-    font-size: 14px;
-    padding: 5px;
-    width: 200px;
-}
-
-#search .action {
-    margin: 0 0 0 10px;
-}
-
-#search .action input {
-    padding: 6px 10px;
-}
-
-/* employee list */
+/* Employee list page */
 .employeeSingle {
-    border-top: 1px dotted rgb(200, 200, 200);
-}
-
-.employeeSingle:hover {
-    background: rgb(230, 230, 230);
-}
-
-.employeeLink {
+  border-top: 1px dotted #c8c8c8; }
+  .employeeSingle:hover {
+    background: #e6e6e6; }
+  .employeeSingle .employeeLink {
     display: block;
     height: 86px;
     position: absolute;
-    width: 100%;
-}
-
-.employeeSingleName {
+    width: 100%; }
+  .employeeSingle .employeeSingleName {
     font-size: 14px;
     margin: 0 0 5px 0;
-    padding: 10px 20px 0 20px;
-}
-
-.employeeSingleStats {
-    color: rgb(120, 120, 120);
+    padding: 10px 20px 0 20px; }
+  .employeeSingle .employeeSingleStats {
+    color: #787878;
     font-size: 12px;
-    padding: 0 20px 10px 20px;
-}
+    padding: 0 20px 10px 20px; }
+    .employeeSingle .employeeSingleStats .employeeSingleLabel {
+      float: left;
+      margin-right: 3px;
+      width: 60px; }
+    .employeeSingle .employeeSingleStats .employeeSingleData {
+      float: left; }
 
-.employeeSingleLabel {
-    float: left;
-    margin-right: 3px;
-    width: 60px;
-}
-
-.employeeSingleData {
-    float: left;
-}
-
-/* employee detail */
-.employee {
-    width: 400px;
-}
-
+/* Employee detail, edit */
 .employee, .employeeHistory {
-    float: left;
-}
+  float: left; }
 
-.employeeName a, .employeeName a:hover {
-    color: rgb(40, 40, 40);
-}
-
-.employeeStats {
+.employee {
+  width: 400px; }
+  .employee .employeeName a {
+    color: #282828; }
+  .employee .employeeImage {
+    margin: 0 0 40px 0; }
+    .employee .employeeImage img {
+      max-width: 200px; }
+  .employee .employeeStats {
     font-size: 14px;
     list-style-type: none;
     margin: 0;
-    padding: 0 0 0 10px;
-}
+    padding: 0 0 0 10px; }
+    .employee .employeeStats li {
+      margin: 0 0 20px 0; }
+      .employee .employeeStats li .employeeLabel {
+        float: left;
+        width: 100px; }
 
-.employeeStats li {
-    margin: 0 0 20px 0;
-}
+.employeeEdit .leftForm {
+  float: left; }
+.employeeEdit .rightForm {
+  float: right; }
+.employeeEdit .employeeImage {
+  margin: 20px 0; }
+  .employeeEdit .employeeImage img {
+    max-width: 200px; }
 
-.employeeLabel {
-    float: left;
-    width: 100px;
-}
-
-/* employee history */
-.historySection {
-    margin: 0 0 20px 0;
-    width: 500px;
-}
-
-.historySectionName {
-    color: rgb(40, 40, 40);
+/* Employee history, locations, jobs, seats */
+.employeeHistory .historySection {
+  margin: 0 0 20px 0;
+  width: 500px; }
+  .employeeHistory .historySection .historySectionName {
+    color: #282828;
     display: block;
     font-size: 14px;
     font-weight: 700;
     margin: 0;
-    padding: 0 0 10px 0;
-}
-
-.historySectionName:hover {
-    color: rgb(40, 40, 40);
-}
-
-.historySection h1 {
+    padding: 0 0 10px 0; }
+    .employeeHistory .historySection .historySectionName:hover {
+      color: #282828; }
+  .employeeHistory .historySection h1 {
     font-size: 14px;
-    margin: 0 0 10px 0;
-}
-
-.historySection .itemAdd {
+    margin: 0 0 10px 0; }
+  .employeeHistory .historySection .itemAdd {
     float: right;
-    font-weight: 300;
-}
-
-.historySection ol {
+    font-weight: 300; }
+  .employeeHistory .historySection ol {
     font-size: 14px;
-    padding: 0;
     margin: 0;
-}
+    padding: 0; }
+    .employeeHistory .historySection ol li {
+      border-top: 1px dotted #c8c8c8; }
+      .employeeHistory .historySection ol li .historyInfoEdit {
+        float: right;
+        margin: 0 0 0 20px; }
+        .employeeHistory .historySection ol li .historyInfoEdit a {
+          display: block;
+          padding: 10px 0; }
+      .employeeHistory .historySection ol li .historyInfo {
+        padding: 10px 5px; }
+        .employeeHistory .historySection ol li .historyInfo span {
+          color: #a0a0a0;
+          float: right; }
 
-.historySection li {
-    border-top: 1px dotted rgb(200, 200, 200);
-}
-
-.historyInfo {
-    padding: 10px 5px;
-}
-
-.historyInfo span {
-    color: rgb(160, 160, 160);
-    float: right;
-}
-
-.historyInfoEdit {
-    float: right;
-    margin: 0 0 0 20px;
-}
-
-.historyInfoEdit a {
-    display: block;
-    padding: 10px 0;
-}
+/* Timeline */
+.timeline h1 {
+  border-bottom: 1px solid #c8c8c8;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 27px;
+  margin: 0 0 10px 0;
+  padding: 10px; }
+.timeline .object {
+  font-size: 14px;
+  line-height: 21px;
+  padding: 10px; }
+  .timeline .object .time {
+    color: #787878;
+    float: left;
+    width: 100px; }
+  .timeline .object .message {
+    float: left; }

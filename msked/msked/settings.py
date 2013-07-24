@@ -25,8 +25,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Amazon S3
-AWS_ACCESS_KEY_ID = 'AKIAIXM2DMH4M2PAT5TA'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID       = 'AKIAIXM2DMH4M2PAT5TA'
+AWS_SECRET_ACCESS_KEY   = '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'
 AWS_STORAGE_BUCKET_NAME = project_name
 if DEV:
     BUCKET_NAME = project_name + '_development'
@@ -65,17 +65,24 @@ LOGIN_URL = '/login/'
 
 LOOP_MAX = 20
 
+
+
 MANAGERS = ADMINS
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 if DEV:
     MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 
-        'media')).replace('\\', '/').replace('\%s' % project_name, '/%s' % project_name)
+        'media')).replace('\\', '/').replace('\%s' % project_name, 
+            '/%s' % project_name)
 else:
     MEDIA_ROOT = os.path.dirname(__file__).replace('\\','/') + '/../media'
 
 # URL that handles the media served from MEDIA_ROOT.
-MEDIA_URL = '/media/'
+MEDIA_URL        = '/media/'
+IMAGE_URL        = 'img/employees/'
+MEDIA_IMAGE      = MEDIA_URL + IMAGE_URL
+MEDIA_IMAGE_ROOT = MEDIA_ROOT + '/' + IMAGE_URL
+MEDIA_AWS        = 'http://s3.amazonaws.com/%s%s' % (BUCKET_NAME, MEDIA_IMAGE)
 
 # Memcache
 if not DEV:
@@ -213,6 +220,7 @@ INSTALLED_APPS += (
     'assignments',
     'employees',
     'excludes',
+    'globaltags',
     'job_schedules',
     'jobs',
     'location_schedules',

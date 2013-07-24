@@ -8,3 +8,11 @@ class Team(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def employees(self):
+        employees = self.employee_set.order_by('first_name')
+        employees = ['%s %s' % (u.first_name, u.last_name)  for u in employees]
+        return ', '.join(employees)
+
+    def employees_count(self):
+        return self.employee_set.all().count()

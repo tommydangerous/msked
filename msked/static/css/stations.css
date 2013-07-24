@@ -1,51 +1,54 @@
 .station {
-    background: rgb(240, 240, 240);
-    margin: 0 0 20px 0;
-    height: 100px;
-}
-
-.stations .station:last-child {
+  background: #f0f0f0;
+  margin: 0 0 20px 0;
+  height: 100px; }
+  .station:hover {
+    cursor: pointer; }
+  .station h1 {
+    color: #c8c8c8;
+    font-size: 27px;
+    font-weight: 300;
+    line-height: 100px;
     margin: 0;
-}
-
-.station h1 {
-    color: rgb(120, 120, 120);
-    font-size: 13px;
-    line-height: 16px;
-    margin: 0;
-    padding: 42px 0;
     position: absolute;
     text-align: center;
-    z-index: 0;
-}
-
-.seat {
-    height: 50px;
-    width: 50%;
-}
-
-.seat.odd {
-    float: left;
-}
-
-.seat.even {
-    float: right;
-    text-align: right;
-}
-
-.seat a {
-    display: block;
-    font-size: 13px;
-    line-height: 16px;
-    height: 50px;
+    z-index: 0; }
+  .station .stationNote {
+    height: 40px;
     position: relative;
-    z-index: 1;
-}
+    top: 30px; }
+    .station .stationNote p {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+      box-sizing: border-box;
+      font-size: 12px;
+      line-height: 40px;
+      overflow: hidden;
+      padding: 0 5px;
+      position: absolute;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 350px;
+      z-index: 1; }
+  .station .seat {
+    height: 50px;
+    width: 40%; }
+    .station .seat.even {
+      float: right;
+      text-align: right; }
+    .station .seat.odd {
+      float: left; }
+    .station .seat.top a {
+      padding: 5px 5px 24px 5px; }
+    .station .seat.bottom a {
+      padding: 24px 5px 5px 5px; }
+    .station .seat a {
+      display: block;
+      font-size: 12px;
+      height: 50px;
+      position: relative;
+      z-index: 1; }
 
-.seat.top a {
-    padding: 10px 10px 24px 10px;
-}
-
-.seat.bottom a {
-    padding: 24px 10px 10px 10px;
-}
+.stations .station:last-child {
+  margin: 0; }

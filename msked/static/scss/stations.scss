@@ -1,0 +1,77 @@
+@mixin browser($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  #{$property}: #{$value};
+}
+
+.station {
+  background: rgb(240, 240, 240);
+  margin: 0 0 20px 0;
+  height: 100px;
+  &:hover {
+    cursor: pointer;
+  }
+  h1 {
+    color: rgb(200, 200, 200);
+    font-size: 27px;
+    font-weight: 300;
+    line-height: 100px;
+    margin: 0;
+    position: absolute;
+    text-align: center;
+    z-index: 0;
+  }
+  .stationNote {
+    height: 40px;
+    position: relative;
+    top: 30px;
+    p {
+      @include browser(box-sizing, border-box);
+      font-size: 12px;
+      line-height: 40px;
+      overflow: hidden;
+      padding: 0 5px;
+      position: absolute;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 350px;
+      z-index: 1;
+    }
+  }
+  .seat {
+    height: 50px;
+    width: 40%;
+    &.even {
+      float: right;
+      text-align: right;
+    }
+    &.odd {
+      float: left;
+    }
+    &.top {
+      a {
+        padding: 5px 5px 24px 5px;
+      }
+    }
+    &.bottom {
+      a {
+        padding: 24px 5px 5px 5px;
+      }
+    }
+    a {
+      display: block;
+      font-size: 12px;
+      height: 50px;
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+.stations {
+  .station {
+    &:last-child {
+      margin: 0;
+    }
+  }
+}

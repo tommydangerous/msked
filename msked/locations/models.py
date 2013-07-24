@@ -26,6 +26,9 @@ class Location(models.Model):
         else:
             return []
 
+    def model(self):
+        return 'location'
+
     def stations(self):
         return self.station_set.all().order_by('name')
 

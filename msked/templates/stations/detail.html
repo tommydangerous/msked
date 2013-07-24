@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block subheader %}
+<header class="subHeader">
+  <nav>
+    <ul>
+      <li>
+        <a href='{% url notes.views.station station.slug %}'>
+          + Add Note
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+{% endblock %}
+{% block content %}
+{% for note in objects %}
+  {% include 'notes/note.html' %}
+{% endfor %}
+{% endblock %}

@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -10,6 +11,8 @@ class Employee(models.Model):
     first_name  = models.CharField(max_length=30)
     floater     = models.BooleanField(default=False)
     last_name   = models.CharField(max_length=30)
+    image       = models.ImageField(blank=True, null=True,
+        upload_to=settings.IMAGE_URL)
     slug        = models.SlugField(blank=True, null=True, unique=True)
     team        = models.ForeignKey(Team, blank=True, null=True)
     tier_lab    = models.IntegerField()
@@ -17,6 +20,7 @@ class Employee(models.Model):
     vacation    = models.BooleanField(default=False)
 
     class Meta:
+        ordering = ('last_name', 'first_name',)
         unique_together = ('first_name', 'last_name')
 
     def __unicode__(self):
@@ -66,6 +70,12 @@ class Employee(models.Model):
 
     def name(self):
         return '%s %s' % (self.first_name, self.last_name)
+
+    def photo(self):
+        """Return URL for employee's image."""
+        if self.image:
+            return '%s%s/%s.jpg' % (settings.MEDIA_AWS, self.pk, self.pk)
+        return '%s%sdefault.png' % (settings.STATIC_URL, settings.IMAGE_URL)
 
     def worked(self):
         """Return a list of jobs worked."""

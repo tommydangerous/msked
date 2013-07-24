@@ -36,12 +36,16 @@ def root(request):
 @login_required
 def detail(request, pk):
     """Schedule detail page."""
-    schedule = get_object_or_404(Schedule, pk=pk)
+    schedule    = get_object_or_404(Schedule, pk=pk)
+    all_jobs    = schedule.jobs()
+    daily_jobs  = [job for job in all_jobs if job.daily]
+    weekly_jobs = [job for job in all_jobs if job.weekly]
     d = {
-        'jobs'     : schedule.jobs(),
+        'daily_jobs': daily_jobs,
         'locations': schedule.locations(),
         'schedule' : schedule,
         'title'    : schedule.name,
+        'weekly_jobs': weekly_jobs,
     }
     return render_to_response('schedules/detail.html', d, 
         context_instance=RequestContext(request))

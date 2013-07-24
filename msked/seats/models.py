@@ -38,6 +38,9 @@ class Seat(models.Model):
                     if e.current_location().pk == location.pk:
                         return e
 
+    def model(self):
+        return 'seat'
+
     def number(self):
         try:
             num = int(self.name)

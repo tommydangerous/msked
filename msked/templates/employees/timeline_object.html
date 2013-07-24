@@ -1,0 +1,19 @@
+<div class='object'>
+  {% load common_tags %}
+  <div class='time'>
+    {{ object.created|time }}
+  </div>
+  <div class='message'>
+    {% if object.model == 'assignment' %}
+      Assigned to station {{ object.seat.station.name }}, 
+      seat {{ object.seat.name }}
+    {% elif object.model == 'note' %}
+      Note added: {{ object.content }}
+    {% elif object.model == 'placement' %}
+      Placed in the {{ object.location.name }}
+    {% elif object.model == 'task' %}
+      Worked the {{ object.job.name }} job
+    {% endif %}
+  </div>
+  <div class='clear'></div>
+</div>

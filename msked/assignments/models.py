@@ -16,5 +16,14 @@ class Assignment(models.Model):
         ampm = self.created.strftime('%p').lower()
         return '%s - %s%s' % (date, time, ampm)
 
+    def model(self):
+        """Return string of model's class name."""
+        return 'assignment'
+
     def station(self):
         return self.seat.station
+
+    def time(self):
+        time  = self.created.strftime('%I:%M').lstrip('0')
+        am_pm = self.created.strftime('%p').lower()
+        return time + am_pm
