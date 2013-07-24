@@ -6,6 +6,9 @@ class Team(models.Model):
     location = models.ForeignKey(Location, blank=True, null=True)
     name     = models.CharField(max_length=30, unique=True)
 
+    class Meta:
+        ordering = ('name',)
+
     def __unicode__(self):
         return self.name
 

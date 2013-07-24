@@ -65,8 +65,6 @@ LOGIN_URL = '/login/'
 
 LOOP_MAX = 20
 
-
-
 MANAGERS = ADMINS
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.

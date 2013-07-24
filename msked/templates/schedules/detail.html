@@ -1,5 +1,25 @@
 {% extends 'base.html' %}
 {% block title %}{{ title }}{% endblock %}
+{% block head %}
+<script>
+$(document).ready(function() {
+  $.ajax({
+    type: 'GET',
+    url: '{{ locations_url }}',
+    success: function(response) {
+      $('.locations').append(response.locations);
+    }
+  });
+  $.ajax({
+    type: 'GET',
+    url: '{{ jobs_url }}',
+    success: function(response) {
+      $('.jobs').append(response.jobs);
+    }
+  });
+});
+</script>
+{% endblock %}
 {% block subheader %}
 <header class="subHeader">
   <nav class="scheduleNav">
@@ -27,37 +47,10 @@
 <div class="schedule">
   <div class="locations">
     <h1>Locations</h1>
-    {% for location in locations %}
-      <div class="location">
-        <h2>{{ location }}</h2>
-        <ol>
-          {% for employee in location.current_employees %}
-            <li>
-              <a href="{% url employees.views.detail employee.slug %}">
-                {% if employee.team.pk == 6 %}
-                  <span class="red">{{ employee }}</span>
-                {% else %}
-                  {{ employee }}
-                {% endif %}
-              </a>
-            </li>
-          {% endfor %}
-        </ol>
-      </div>
-    {% endfor %}
   </div>
   <div class="jobs">
     <h1>Jobs</h1>
-    <div class='weeklyJobs'>
-      {% for job in weekly_jobs %}
-        {% include 'schedules/job.html' %}
-      {% endfor %}
-    </div>
-    <div class='dailyJobs'>
-      {% for job in daily_jobs %}
-        {% include 'schedules/job.html' %}
-      {% endfor %}
-    </div>
+  </div>
   <div class="clear"></div>
 </div>
 {% endblock %}

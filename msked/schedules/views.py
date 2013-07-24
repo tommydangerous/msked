@@ -3,12 +3,14 @@ from collections import defaultdict
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
-from django.template import RequestContext
+from django.template import loader, RequestContext
 from placements.utils import set_placements, switch_placements
 from schedules.models import Schedule
 from tasks.utils import set_task
+
+import json
 
 @login_required
 def root(request):
@@ -37,18 +39,48 @@ def root(request):
 def detail(request, pk):
     """Schedule detail page."""
     schedule    = get_object_or_404(Schedule, pk=pk)
+    d = {
+        'jobs_url': reverse('schedules.views.jobs',
+            args=[schedule.pk]),
+        'locations_url': reverse('schedules.views.locations', 
+            args=[schedule.pk]),
+        'schedule' : schedule,
+        'title'    : schedule.name,
+    }
+    return render_to_response('schedules/detail.html', d, 
+        context_instance=RequestContext(request))
+
+@login_required
+def jobs(request, pk):
+    """Return ajax jobs for schedule."""
+    schedule    = get_object_or_404(Schedule, pk=pk)
     all_jobs    = schedule.jobs()
     daily_jobs  = [job for job in all_jobs if job.daily]
     weekly_jobs = [job for job in all_jobs if job.weekly]
     d = {
-        'daily_jobs': daily_jobs,
-        'locations': schedule.locations(),
-        'schedule' : schedule,
-        'title'    : schedule.name,
+        'daily_jobs' : daily_jobs,
         'weekly_jobs': weekly_jobs,
     }
-    return render_to_response('schedules/detail.html', d, 
-        context_instance=RequestContext(request))
+    jobs = loader.get_template('schedules/jobs.html')
+    context = RequestContext(request, d)
+    data = {
+        'jobs': jobs.render(context),
+    }
+    return HttpResponse(json.dumps(data), mimetype='application/json')
+
+@login_required
+def locations(request, pk):
+    """Return ajax locations for schedule."""
+    schedule = get_object_or_404(Schedule, pk=pk)
+    d = {
+        'locations': schedule.locations(),
+    }
+    locations = loader.get_template('schedules/locations.html')
+    context   = RequestContext(request, d)
+    data = {
+        'locations': locations.render(context),
+    }
+    return HttpResponse(json.dumps(data), mimetype='application/json')
 
 @login_required
 def assignment(request, pk):

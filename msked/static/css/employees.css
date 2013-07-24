@@ -141,3 +141,9 @@
     width: 100px; }
   .timeline .object .message {
     float: left; }
+    .timeline .object .message p {
+      float: left; }
+      .timeline .object .message p span {
+        color: #a0a0a0; }
+    .timeline .object .message .model {
+      width: 80px; }

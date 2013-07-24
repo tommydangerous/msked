@@ -183,6 +183,15 @@
     }
     .message {
       float: left;
+      p {
+        float: left;
+        span {
+          color: rgb(160, 160, 160);
+        }
+      }
+      .model {
+        width: 80px;
+      }
     }
   }
 }

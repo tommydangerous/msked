@@ -1,0 +1,18 @@
+{% for location in locations %}
+  <div class="location">
+    <h2>{{ location }}</h2>
+    <ol>
+      {% for employee in location.current_employees %}
+        <li>
+          <a href="{% url employees.views.detail employee.slug %}">
+            {% if employee.team.pk == 6 %}
+              <span class="red">{{ employee }}</span>
+            {% else %}
+              {{ employee }}
+            {% endif %}
+          </a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+{% endfor %}

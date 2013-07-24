@@ -1,0 +1,10 @@
+<div class='weeklyJobs'>
+  {% for job in weekly_jobs %}
+    {% include 'schedules/job.html' %}
+  {% endfor %}
+</div>
+<div class='dailyJobs'>
+  {% for job in daily_jobs %}
+    {% include 'schedules/job.html' %}
+  {% endfor %}
+</div>

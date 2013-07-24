@@ -4,16 +4,33 @@
     {{ object.created|time }}
   </div>
   <div class='message'>
-    {% if object.model == 'assignment' %}
-      Assigned to station {{ object.seat.station.name }}, 
-      seat {{ object.seat.name }}
-    {% elif object.model == 'note' %}
-      Note added: {{ object.content }}
-    {% elif object.model == 'placement' %}
-      Placed in the {{ object.location.name }}
-    {% elif object.model == 'task' %}
-      Worked the {{ object.job.name }} job
-    {% endif %}
+    <p class='model'>
+      {% if object.model == 'assignment' %}
+        <a href='{% url employees.views.history employee.slug "seats" %}'>Seat
+      {% elif object.model == 'note' %}
+        <a href='{% url employees.views.notes employee.slug %}'>Note
+      {% elif object.model == 'placement' %}
+        <a href='{% url employees.views.history employee.slug "locations" %}'>
+        Location
+      {% elif object.model == 'task' %}
+        <a href='{% url employees.views.history employee.slug "jobs" %}'>Job
+      {% endif %}</a>
+    </p>
+    <p>
+      {% if object.model == 'assignment' %}
+        Station: {{ object.seat.station.name.title }}, 
+        Seat: {{ object.seat.name.title }}
+      {% elif object.model == 'note' %}
+        "{{ object.content }}"
+        <span>
+          added by {{ object.user.first_name }} {{ object.user.last_name }}
+        </span>
+      {% elif object.model == 'placement' %}
+        {{ object.location.name.title }}
+      {% elif object.model == 'task' %}
+        {{ object.job.name.title }}
+      {% endif %}
+    </p>
   </div>
   <div class='clear'></div>
 </div>
