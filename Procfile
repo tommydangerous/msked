@@ -1,2 +1,2 @@
 web: newrelic-admin run-program python msked/manage.py runserver 0.0.0.0:$PORT --noreload
-worker: python worker.py
+worker: python msked/worker.py
