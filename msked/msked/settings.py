@@ -1,5 +1,5 @@
 # Django settings for msked project.
-import os, socket
+import os, platform, socket
 
 # Check environment
 if os.environ.get('MYSITE_PRODUCTION', False):
@@ -40,13 +40,14 @@ AWS_HEADERS = {
 AWS_QUERYSTRING_AUTH = False
 
 if DEV:
+    DATABASES_HOST = '' if platform.system() == 'Windows' else '192.168.1.70'
     DATABASES = {
         'default': {
             'ENGINE':   'django.db.backends.postgresql_psycopg2',
             'NAME':     '%s' % project_name,
             'USER':     'postgres',
             'PASSWORD': 'postgres',
-            'HOST':     '',
+            'HOST':     DATABASES_HOST,
             'PORT':     '5432',
         }
     }
@@ -82,20 +83,20 @@ MEDIA_IMAGE      = MEDIA_URL + IMAGE_URL
 MEDIA_IMAGE_ROOT = MEDIA_ROOT + '/' + IMAGE_URL
 MEDIA_AWS        = 'http://s3.amazonaws.com/%s%s' % (BUCKET_NAME, MEDIA_IMAGE)
 
-# Memcache
+# Memcachier
 if not DEV:
-    import pylibmc
-    # Connect to memcache with config from environment variables
-    mc = pylibmc.Client(
-        servers=[os.environ.get('MEMCACHE_SERVERS')],
-        username=os.environ.get('MEMCACHE_USERNAME'),
-        password=os.environ.get('MEMCACHE_PASSWORD'),
-        binary=True
-    )
+    os.environ['MEMCACHE_PASSWORD'] = os.environ.get('MEMCACHIER_PASSWORD', '')
+    os.environ['MEMCACHE_SERVERS']  = os.environ.get('MEMCACHIER_SERVERS', 
+        '').replace(',', ';')
+    os.environ['MEMCACHE_USERNAME'] = os.environ.get('MEMCACHIER_USERNAME', '')
+
     CACHES = {
-        'default': {
-            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
-        }
+      'default': {
+        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+        'LOCATION': os.environ.get('MEMCACHIER_SERVERS', '').replace(',', ';'),
+        'TIMEOUT': 500,
+        'BINARY': True,
+      }
     }
 
 MIDDLEWARE_CLASSES = (
@@ -112,6 +113,22 @@ MIDDLEWARE_CLASSES = (
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 ROOT_URLCONF = 'msked.urls'
+
+# Redis Queue
+RQ_QUEUES = {
+    'default': {
+        'URL': os.getenv('REDISTOGO_URL'),
+        'DB' : 0,
+    },
+    'high': {
+        'URL': os.getenv('REDISTOGO_URL'),
+        'DB' : 0,
+    },
+    'low': {
+        'URL': os.getenv('REDISTOGO_URL'),
+        'DB' : 0,
+    },
+}
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'j9@5%gy&amp;(+0&amp;q!b&amp;0mjbfx$1%a15@5t&amp;g&amp;7hgmxj9ksm704z)='
@@ -210,6 +227,7 @@ INSTALLED_APPS = (
 
 INSTALLED_APPS += (
     'compressor',
+    'django_rq',
     'south',
     'storages',
 )

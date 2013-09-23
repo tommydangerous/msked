@@ -23,3 +23,4 @@ newrelic
 pylibmc==1.2.2
 django-pylibmc-sasl==0.2.4
 dj-database-url
+rq==0.3.8

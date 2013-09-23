@@ -83,23 +83,27 @@ def placement(request, pk):
 @login_required
 def root(request):
     schedule = Schedule.objects.all().order_by('created')[0]
-    location = schedule.locations_by_occupancy()[0]
-    stations = location.stations()
-    if len(stations) > 8:
-        max_station = 8
-    else:
-        max_station = len(stations)
-    left  = sorted(stations[6:max_station], 
-        key=lambda s: s.name, reverse=True)
-    right = sorted(stations[:6], key=lambda s: s.name, reverse=True)
-    reject = [s for s in stations if s.name == 'Rejects']
-    wet_copies = [s for s in stations if s.name == 'Wet Copies']
-    d = {
-        'left'      : left,
-        'right'     : right,
-        'reject'    : reject,
-        'wet_copies': wet_copies,
-    }
+    location_schedule = schedule.locationschedule_set.filter(
+        location__name__icontains='lab')
+    d = {}
+    if location_schedule:
+        location = location_schedule[0].location
+        stations = location.stations()
+        if len(stations) > 8:
+            max_station = 8
+        else:
+            max_station = len(stations)
+        left  = sorted(stations[6:max_station], 
+            key=lambda s: s.name, reverse=True)
+        right = sorted(stations[:6], key=lambda s: s.name, reverse=True)
+        reject = [s for s in stations if s.name == 'Rejects']
+        wet_copies = [s for s in stations if s.name == 'Wet Copies']
+        d = {
+            'left'      : left,
+            'right'     : right,
+            'reject'    : reject,
+            'wet_copies': wet_copies,
+        }
     return render_to_response('schedules/root.html', d, 
         context_instance=RequestContext(request))
 

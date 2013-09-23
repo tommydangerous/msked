@@ -22,3 +22,9 @@ urlpatterns = patterns('',
     url(r'^users/', include('users.urls')),
     url(r'^$', 'schedules.views.root', name='root_path'),
 )
+
+if not settings.DEV:
+    urlpatterns += patterns('',
+        # Django RQ
+        url(r'^django-rq/', include('django_rq.urls')),
+    )

@@ -87,10 +87,13 @@ def job_check(index, jobs, first, second, f_temp, s_temp, ratio=None):
 
     elif ratio >= 2:
         if len(first) >= len(second):
+            # available needs to be greater than needed
             while avail < need and loop_counter < loop_max or (
+                # available cannot be greater than or equal to all eligible
                 avail >= len(all_elig) and loop_counter < loop_max) or (
-                extra < (need - (len(second) - len(first)))):
-
+                extra < need and loop_counter < loop_max):
+                # not sure what that is for
+                # extra < (need - (len(second) - len(first)))):
                 d = job_loop(index, jobs, first, second, f_temp, s_temp, 
                     all_elig, ex_pks, loop_counter, loop_max, need, ratio)
                 if d:

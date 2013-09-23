@@ -66,8 +66,13 @@ def switch_placements(schedule):
             all_employees = all_employees.exclude(team=exclude.team)
     all_employees = list(all_employees)
     # work locations for this schedule
-    locations = sorted(schedule.locations(), 
-        key=lambda l: l.occupancy, reverse=True)
+    # if office has an occupancy, 
+    # office becomes the first location when reversed
+    # ---------- NOT GOOD ----------
+    # locations = sorted(schedule.locations(), 
+    #     key=lambda l: l.occupancy, reverse=True)
+    # Laboratory must be first, Office must be second
+    locations = sorted(schedule.locations(), key=lambda l: l.occupancy)
     if len(locations) >= 2:
         # check to see if employees are placed at both locations
         first_loc  = locations[0]
