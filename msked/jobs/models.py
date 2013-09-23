@@ -21,7 +21,7 @@ class Job(models.Model):
             need = self.daily * 5
         elif self.weekly:
             need = self.weekly
-        tasks = Task.objects.filter(job=self).order_by('created')[:need]
+        tasks = Task.objects.filter(job=self).order_by('-created')[:need]
         employees = [t.employee for t in tasks]
         if self.daily:
             return employees
