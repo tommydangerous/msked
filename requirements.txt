@@ -8,6 +8,7 @@ django-appconf==0.5
 django-compressor==1.2
 -e git+https://github.com/toastdriven/django-haystack.git@e0fd6aba05db4da53761556fb188b0a22f223e54#egg=django_haystack-dev
 django-registration==0.8
+django-rq==0.5.1
 django-storages==1.1.5
 django-tagging==0.3.1
 facepy==0.8.4
