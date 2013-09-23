@@ -54,7 +54,7 @@ def create_task_for_daily_jobs(jobs, location):
             employee.work_set.create(job=job)
             worked.append(employee)
             avail_dict[job.name].remove(employee)
-            print '%s Day %s: %s' % (job.name, day, employee.pk)
+            print '%s Day %s: %s - %s' % (job.name, day, employee, employee.pk)
             print '-' * 20
     for job in jobs:
         Undo.objects.create(job=job)
@@ -77,22 +77,26 @@ def create_task_for_weekly_jobs(jobs, location):
             employee.task_set.create(job=job)
             employee.work_set.create(job=job)
         Undo.objects.create(job=job)
-        print '%s: %s' % (job, [e.pk for e in employees])
+        print '%s: %s' % (job, [(e, e.pk) for e in employees])
         print '-' * 20
 
 def set_task(schedule):
     work_check(schedule)
     print ('-' * 10) + ' Set Task ' + ('-' * 10)
-    locations   = schedule.locations_by_occupancy()
+    # locations   = schedule.locations_by_occupancy()
+    laboratory  = schedule.laboratory()
+    office      = schedule.office()
     jobs        = sorted(schedule.jobs(), key=lambda j: j.scarcity())
     daily_jobs  = sorted([job for job in jobs if job.daily], 
         key=lambda x: x.scarcity())
     weekly_jobs = sorted([job for job in jobs if job.weekly],
         key=lambda x: x.scarcity())
     # Create tasks for daily jobs that pull from the office
-    create_task_for_daily_jobs(daily_jobs, locations[1])
+    # create_task_for_daily_jobs(daily_jobs, locations[1])
+    create_task_for_daily_jobs(daily_jobs, office)
     # Create tasks for weekly jobs that pull from the lab
-    create_task_for_weekly_jobs(weekly_jobs, locations[0])
+    # create_task_for_weekly_jobs(weekly_jobs, locations[0])
+    create_task_for_weekly_jobs(weekly_jobs, laboratory)
     # If in development, change all task dates to a week before
     if settings.DEV:
         change_task_date()
@@ -104,6 +108,8 @@ def task_check(schedule, first, second):
     second = second location employees (always smaller)
     """
     jobs = schedule.jobs_by_scarcity()
+    print 'First:  %s' % len(first)
+    print 'Second: %s' % len(second)
     print ('-' * 10) + ' Task & Job Check ' + ('-' * 10)
     temp = job_check(0, jobs, first, second, first, second)
     if temp:

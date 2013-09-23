@@ -26,6 +26,12 @@ class Schedule(models.Model):
         return sorted(self.jobs(), key=lambda j: (j.scarcity(), 
             1.0/j.needed()), reverse=True)
 
+    def laboratory(self):
+        location_schedule = self.locationschedule_set.filter(
+            location__name__icontains='lab')
+        if location_schedule:
+            return location_schedule[0].location
+
     def locations(self):
         return sorted([ls.location for ls in self.locationschedule_set.all()], 
             key=lambda l: l.name)
@@ -33,6 +39,12 @@ class Schedule(models.Model):
     def locations_by_occupancy(self):
         return sorted(self.locations(), key=lambda l: l.occupancy, 
             reverse=True)
+
+    def office(self):
+        location_schedule = self.locationschedule_set.filter(
+            location__name__icontains='office')
+        if location_schedule:
+            return location_schedule[0].location
 
     def save(self, *args, **kwargs):
         words = self.name.split(' ')

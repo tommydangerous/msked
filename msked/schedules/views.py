@@ -1,5 +1,6 @@
 from assignments.utils import assign_seating
 from collections import defaultdict
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -10,6 +11,7 @@ from placements.utils import set_placements, switch_placements
 from schedules.models import Schedule
 from tasks.utils import set_task
 
+import django_rq
 import json
 
 @login_required
@@ -73,10 +75,15 @@ def locations(request, pk):
 def placement(request, pk):
     """Create placement and set/switch locations for employees."""
     schedule = get_object_or_404(Schedule, pk=pk)
-    if switch_placements(schedule):
-        messages.success(request, 'Placements switched')
+    if settings.DEV:
+        if switch_placements(schedule):
+            messages.success(request, 'Placements switched')
+        else:
+            messages.error(request, 'Nothing was done, loop exceeded maximum')
     else:
-        messages.error(request, 'Nothing was done, loop exceeded maximum')
+        # Place in queue to run in the background
+        django_rq.enqueue(switch_placements, schedule)
+        messages.success(request, 'Switching placements, please wait')
     return HttpResponseRedirect(reverse('schedules.views.detail', 
         args=[schedule.pk]))
 
@@ -111,7 +118,12 @@ def root(request):
 def task(request, pk):
     """Create task and assign job to employees."""
     schedule = get_object_or_404(Schedule, pk=pk)
-    set_task(schedule)
-    messages.success(request, 'Tasks set')
+    if settings.DEV:
+        set_task(schedule)
+        messages.success(request, 'Tasks set')
+    else:
+        # Place in queue to run in the background
+        django_rq.enqueue(set_task, schedule)
+        messages.success(request, 'Setting tasks, please wait')
     return HttpResponseRedirect(reverse('schedules.views.detail', 
         args=[schedule.pk]))

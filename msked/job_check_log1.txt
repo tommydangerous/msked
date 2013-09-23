@@ -1,16 +1,49 @@
 --------------------
-[5] Edits loop: 6
-Ratio: 2.5, New Ratio: 2.5, All Elig: 5
-Available: 3, Extra: 2, Need: 2
+[5] Wet Entry loop: 1
+Ratio: 1.0, New Ratio: 1.0, All Elig: 2
+Available: 2, Extra: 0, Need: 2
 --------------------
-[4] Wet Entry loop: 1
-Ratio: 4.5, New Ratio: 4.5, All Elig: 9
-Available: 4, Extra: 5, Need: 2
+[4] Edits loop: 4
+Ratio: 2.5, New Ratio: 2.5, All Elig: 5
+Available: 2, Extra: 3, Need: 2
 --------------------
 [3] Wet Copies loop: 1
-Ratio: 5.8, New Ratio: 5.8, All Elig: 87
-Available: 25, Extra: 62, Need: 15
+Ratio: 1.8, New Ratio: 1.8, All Elig: 27
+Available: 16, Extra: 11, Need: 15
 --------------------
-[2] After Opening loop: 2
-Ratio: 5.8, New Ratio: 4.8, All Elig: 87
-Available: 10, Extra: 62, Need: 15
+[2] After Opening loop: 19
+Ratio: 1.8, New Ratio: 1.06666666667, All Elig: 27
+Available: 4, Extra: 12, Need: 15
+--------------------
+[5] Wet Entry loop: 1
+Ratio: 1.0, New Ratio: 1.0, All Elig: 2
+Available: 2, Extra: 0, Need: 2
+--------------------
+[4] Edits loop: 1
+Ratio: 2.5, New Ratio: 2.5, All Elig: 5
+Available: 1, Extra: 4, Need: 2
+--------------------
+[5] Wet Entry loop: 1
+Ratio: 1.0, New Ratio: 1.0, All Elig: 2
+Available: 2, Extra: 0, Need: 2
+--------------------
+[4] Edits loop: 2
+Ratio: 2.5, New Ratio: 2.5, All Elig: 5
+Available: 1, Extra: 4, Need: 2
+--------------------
+[5] Wet Entry loop: 1
+Ratio: 1.0, New Ratio: 1.0, All Elig: 2
+Available: 2, Extra: 0, Need: 2
+--------------------
+[4] Edits loop: 3
+Ratio: 2.5, New Ratio: 2.5, All Elig: 5
+Available: 2, Extra: 3, Need: 2
+--------------------
+[3] Wet Copies loop: 1
+Ratio: 1.8, New Ratio: 1.8, All Elig: 27
+Available: 18, Extra: 9, Need: 15
+--------------------
+[2] After Opening loop: 20
+Ratio: 1.8, New Ratio: 1.0, All Elig: 27
+Available: 5, Extra: 10, Need: 15
+--------------------

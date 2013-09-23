@@ -185,7 +185,12 @@ def job_check(index, jobs, first, second, f_temp, s_temp, ratio=None):
             # s_temp = remaining employees going into the office 
             e_pks   = [e.pk for e in d['eligible']][:need]
             f_temp  = [e for e in d['f_temp'] if e.pk not in e_pks]
-            s_temp  = [e for e in d['s_temp'] if e.pk not in e_pks]
+            # If the job pulls from the office, don't remove from the pool
+            if job.daily:
+                s_temp = d.get('s_temp')
+            else:
+                s_temp  = [e for e in d['s_temp'] if e.pk not in e_pks]
+
             # remove eligible employees from the extra available pool
             # used for calculating employees working in the office
             # ee_pks  = extra eligible employees
@@ -194,10 +199,12 @@ def job_check(index, jobs, first, second, f_temp, s_temp, ratio=None):
             ee_pks  = [e.pk for e in d['ext_elig']][:need]
             ef_temp = d.get('ef_temp')
             es_temp = d.get('es_temp')
+
+            # There is no need to remove from the office pool for daily jobs
             # ef_temp = [e for e in d['ef_temp'] if e.pk not in ee_pks]
             # es_temp = [e for e in d['es_temp'] if e.pk not in ee_pks]
-            return (d['new_first'], d['new_second'], f_temp, s_temp, ef_temp, 
-                es_temp)
+            return (d['new_first'], d['new_second'], f_temp, s_temp, 
+                ef_temp, es_temp)
 
     else:
         return False

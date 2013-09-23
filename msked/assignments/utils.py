@@ -3,9 +3,13 @@ from random import shuffle
 from undos.models import Undo
 
 def assign_seating(schedule):
-    locations = schedule.locations_by_occupancy()
-    if locations:
-        location = locations[0]
+    # locations = schedule.locations_by_occupancy()
+    # if locations:
+    # location = locations[0]
+    location_schedule = schedule.locationschedule_set.filter(
+        location__name__icontains='lab')
+    if location_schedule:
+        location = location_schedule[0].location
         job_seats = defaultdict(list)
         for station in location.stations():
             if station.job:

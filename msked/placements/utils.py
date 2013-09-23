@@ -11,8 +11,9 @@ from works.utils import work_check
 def set_placements(schedule):
     employees = list(schedule.employees())
     # work locations for this schedule
-    locations = sorted(schedule.locations(), 
-        key=lambda l: l.occupancy, reverse=True)
+    # locations = sorted(schedule.locations(), 
+    #     key=lambda l: l.occupancy, reverse=True)
+    locations = [schedule.laboratory(), schedule.office()]
     # create dictionary with empty list for each location
     location_dict = defaultdict(list)
     for location in locations:
@@ -113,8 +114,10 @@ def switch_placements(schedule):
                 exl_pks  = [e.pk for e in exl_emp]
                 while not location_dict[first_loc] and not balanced and (
                     loop_counter < loop_max):
+                    # Employees who worked in the lab last week
                     prev_femp = prev_dict[first_loc]
                     prev_femp = [e for e in prev_femp if e.pk not in exl_pks]
+                    # Employees who worked in the office last week
                     prev_semp = prev_dict[second_loc]
                     temp = task_check(schedule, prev_femp, prev_semp)
                     if temp:
