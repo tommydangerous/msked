@@ -19,6 +19,7 @@ class Schedule(models.Model):
         return employees
 
     def jobs(self):
+        from job_schedules.models import JobSchedule
         return sorted([js.job for js in self.jobschedule_set.all()],
             key=lambda j: j.name)
 
