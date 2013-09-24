@@ -4,14 +4,14 @@ import os, platform, socket
 # Check environment
 if os.environ.get('MYSITE_PRODUCTION', False):
     # production
-    DEBUG = TEMPLATE_DEBUG = False
-    DEV = False
-    COMPRESS_ENABLED = True
+    DEBUG = TEMPLATE_DEBUG = True
+    DEV                    = False
+    COMPRESS_ENABLED       = True
 else:
     # development
     DEBUG = TEMPLATE_DEBUG = True
-    DEV = True
-    COMPRESS_ENABLED = False
+    DEV                    = True
+    COMPRESS_ENABLED       = False
 
 project_name = 'msked'
 
