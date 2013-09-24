@@ -22,25 +22,27 @@ $(document).ready(function() {
 {% endblock %}
 {% block subheader %}
 <header class="subHeader">
-  <nav class="scheduleNav">
-    <ul>
-      <li>
-        <a href="{% url schedules.views.placement schedule.pk %}">
-            Switch Locations
-        </a>
-      </li>
-      <li>
-        <a href="{% url schedules.views.task schedule.pk %}">
-            Set Jobs
-        </a>
-      </li>
-      <li>
-        <a href="{% url schedules.views.assignment schedule.pk %}">
-            Assign Seating
-        </a>
-      </li>
-    </ul>
-  </nav>
+  {% if user.is_authenticated %}
+    <nav class="scheduleNav">
+      <ul>
+        <li>
+          <a href="{% url schedules.views.placement schedule.pk %}">
+              Switch Locations
+          </a>
+        </li>
+        <li>
+          <a href="{% url schedules.views.task schedule.pk %}">
+              Set Jobs
+          </a>
+        </li>
+        <li>
+          <a href="{% url schedules.views.assignment schedule.pk %}">
+              Assign Seating
+          </a>
+        </li>
+      </ul>
+    </nav>
+  {% endif %}
 </header>
 {% endblock %}
 {% block content %}

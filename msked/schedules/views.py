@@ -22,7 +22,6 @@ def assignment(request, pk):
     messages.success(request, 'Seating assigned')
     return HttpResponseRedirect(reverse('root_path'))
 
-@login_required
 def detail(request, pk):
     """Schedule detail page."""
     schedule    = get_object_or_404(Schedule, pk=pk)
@@ -37,7 +36,6 @@ def detail(request, pk):
     return render_to_response('schedules/detail.html', d, 
         context_instance=RequestContext(request))
 
-@login_required
 def jobs(request, pk):
     """Return ajax jobs for schedule."""
     schedule    = get_object_or_404(Schedule, pk=pk)
@@ -55,7 +53,6 @@ def jobs(request, pk):
     }
     return HttpResponse(json.dumps(data), mimetype='application/json')
 
-@login_required
 def locations(request, pk):
     """Return ajax locations for schedule."""
     schedule = get_object_or_404(Schedule, pk=pk)
@@ -87,7 +84,6 @@ def placement(request, pk):
     return HttpResponseRedirect(reverse('schedules.views.detail', 
         args=[schedule.pk]))
 
-@login_required
 def root(request):
     schedule = Schedule.objects.all().order_by('created')[0]
     location_schedule = schedule.locationschedule_set.filter(
