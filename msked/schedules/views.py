@@ -1,4 +1,3 @@
-from assignments.utils import assign_seating
 from collections import defaultdict
 from django.conf import settings
 from django.contrib import messages
@@ -7,6 +6,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import loader, RequestContext
+
+from assignments.utils import assign_seating
 from placements.utils import set_placements, switch_placements
 from schedules.models import Schedule
 from tasks.utils import set_task
@@ -18,8 +19,12 @@ import json
 def assignment(request, pk):
     """Create assignment for station seating for employees."""
     schedule = get_object_or_404(Schedule, pk=pk)
-    assign_seating(schedule)
-    messages.success(request, 'Seating assigned')
+    if settings.DEV:
+        assign_seating(schedule)
+        messages.success(request, 'Seating assigned')
+    else:
+        django_rq.enqueue(assign_seating, schedule)
+        messages.success(request, 'Seating is being assigned, please wait')
     return HttpResponseRedirect(reverse('root_path'))
 
 def detail(request, pk):
@@ -91,21 +96,19 @@ def root(request):
     d = {}
     if location_schedule:
         location = location_schedule[0].location
-        stations = location.stations()
-        if len(stations) > 8:
-            max_station = 8
+        stations = sorted(list(location.stations()), key=lambda s: int(s.name))
+        max_stations_per_side = 7
+        if len(stations) > max_stations_per_side * 2:
+            max_stations = max_stations_per_side * 2
         else:
-            max_station = len(stations)
-        left  = sorted(stations[6:max_station], 
-            key=lambda s: s.name, reverse=True)
-        right = sorted(stations[:6], key=lambda s: s.name, reverse=True)
-        reject = [s for s in stations if s.name == 'Rejects']
-        wet_copies = [s for s in stations if s.name == 'Wet Copies']
+            max_stations = len(stations)
+        left_stations  = sorted(stations[max_stations_per_side:max_stations],
+            key=lambda s: int(s.name), reverse=True)
+        right_stations = sorted(stations[:max_stations_per_side],
+            key=lambda s: int(s.name), reverse=True)
         d = {
-            'left'      : left,
-            'right'     : right,
-            'reject'    : reject,
-            'wet_copies': wet_copies,
+            'left_stations' : left_stations,
+            'right_stations': right_stations,
         }
     return render_to_response('schedules/root.html', d, 
         context_instance=RequestContext(request))

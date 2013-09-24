@@ -1,8 +1,8 @@
-<div class="station" href='{% url stations.views.detail station.slug %}'>
+<div class='station' href='{% url stations.views.detail station.slug %}'>
   {% for seat in station.seats %}
-    <div class="seat{% if forloop.counter|divisibleby:'2' %} even{% else %} odd{% endif %}{% if forloop.counter >= 3 %} bottom{% else %} top{% endif %}">
+    <div class='seat{% if forloop.counter|divisibleby:'2' %} even{% else %} odd{% endif %}{% if forloop.counter >= 3 %} bottom{% else %} top{% endif %}'>
       {% if seat.current_employee %}
-        <a href="{% url employees.views.detail seat.current_employee.slug %}">
+        <a href='{% url employees.views.detail seat.current_employee.slug %}'>
           {{ seat.current_employee }}
         </a>
       {% endif %}
@@ -12,5 +12,5 @@
   <div class='stationNote'>
     <p>{{ station.recent_note.content }}</p>
   </div>
-  <div class="clear"></div>
+  <div class='clear'></div>
 </div>

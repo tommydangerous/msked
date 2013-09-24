@@ -1,56 +1,31 @@
+ @mixin browser($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  #{$property}: #{$value};
+}
 /* Root */
 .lab {
-    min-width: 1440px;
-}
-
-.lab div, .seat a {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.mainLab {
+  min-width: 1440px;
+  a, div {
+    @include browser(box-sizing, border-box);
+  }
+  .mainLab {
     float: left;
-}
-
-.reject .station {
-    margin: 0 auto 20px auto;
-}
-
-.wetCopies {
-    float: left;
-    right: 100px;
-    position: relative;
-    top: 115px;
-    -webkit-transform: rotate(90deg);
-    -khtml-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-}
-
-.leftStations {
-    float: left;
-}
-
-.rightStations {
-    float: left;
-}
-
-.divider {
-    background: rgb(230, 230, 230);
-    float: left;
-    height: 700px;
-    margin: 0 20px;
-}
-
-.divider, .station {
-    border: 1px solid rgb(200, 200, 200);
-}
-
-.divider, .station, .station h1 {
-    width: 350px;
+    .leftStations, .rightStations {
+      float: left;
+    }
+    .divider, .station {
+      border: 1px solid rgb(200, 200, 200);
+      width: 350px;
+    }
+    .divider {
+      background: rgb(230, 230, 230);
+      float: left;
+      height: ((100px + 20) * 7) - 20;
+      // margin: 0 20px;
+    }
+  }
 }
 
 /* Detail */

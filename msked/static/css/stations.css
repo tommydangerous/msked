@@ -12,6 +12,7 @@
     margin: 0;
     position: absolute;
     text-align: center;
+    width: 350px;
     z-index: 0; }
   .station .stationNote {
     height: 40px;

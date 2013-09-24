@@ -1,9 +1,12 @@
 from django.db import models
 from django.utils import timezone
+
+from jobs.models import Job
 from stations.models import Station
 
 class Seat(models.Model):
     created = models.DateTimeField(auto_now_add=True)
+    job     = models.ForeignKey(Job, blank=True, null=True)
     name    = models.CharField(max_length=30)
     station = models.ForeignKey(Station)
 
@@ -17,8 +20,9 @@ class Seat(models.Model):
         return self.assignment_set.all()
 
     def current_employee(self):
-        job = self.station.job
+        job = self.job
         location = self.station.location
+        # If the seat belongs to a job with a daily requirement, e.g. office
         if job and job.daily:
             if self.assignments():
                 now = timezone.now()

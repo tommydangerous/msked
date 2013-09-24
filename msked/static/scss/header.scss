@@ -1,0 +1,101 @@
+/* header */
+.header {
+    background: rgb(37, 141, 200);
+    height: 45px;
+    width: 100%;
+}
+
+.header .logo {
+    float: left;
+    margin: 0 0 0 10px;
+}
+
+.logo a {
+    display: block;
+    padding: 2px 20px 2px 20px;
+}
+
+.logo img {
+    height: 41px;
+    width: 254px;
+}
+
+header nav {
+    float: right;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0 10px 0 0;
+    padding: 0;
+}
+
+header nav li {
+    display: inline-block;
+    float: left;
+}
+
+.header nav a {
+    display: block;
+    font-size: 15px;
+    line-height: 15px;
+    padding: 15px 10px;
+}
+
+.header nav a, .header nav a:hover {
+    color: rgb(255, 255, 255);
+}
+
+.header nav a:hover {
+    background: rgb(32, 124, 202);
+    text-decoration: none;
+}
+
+/* sub header */
+.subHeader {
+    background: rgb(220, 220, 220);
+    height: 35px;
+}
+
+.subHeader nav a {
+    display: block;
+    float: left;
+    font-size: 13px;
+    line-height: 13px;
+    padding: 11px 10px;
+}
+
+/* Menu */
+header nav .menuShow {
+    background: rgb(80, 80, 80);
+    border: none;
+    color: rgb(160, 160, 160);
+}
+
+#menu {
+    display: none;
+    position: relative;
+}
+
+#menu ul {
+    background: rgb(80, 80, 80);
+    position: absolute;
+    right: 0;
+    top: 45px;
+    width: 160px;
+    z-index: 500;
+}
+
+#menu li {
+    display: block;
+    float: none;
+}
+
+#menu a {
+    color: rgb(160, 160, 160);
+}
+
+#menu a:hover, header nav .menuShow:hover {
+    background: rgb(100, 100, 100);
+    color: rgb(255, 255, 255);
+}

@@ -1,52 +1,56 @@
-<div class="logo">
-    <a href="{% url root_path %}">
-        <img src="{{ static }}img/logo_pain.png">
-    </a>
+<div class='logo'>
+  <a href='{% url root_path %}'>
+    <img src='{{ static }}img/logo_pain.png'>
+  </a>
 </div>
-{% if not user.is_anonymous %}
-    <nav>
-        <ul>
-            <li>
-                <a href="{% url schedules.views.detail 1 %}">
-                    Schedules
-                </a>
-            </li>
-            <li>
-                <a href="{% url employees.views.list %}">
-                    Employees
-                </a>
-            </li>
-            {% if not user.is_anonymous %}
-                <li>
-                    <a class="account" href="#">
-                        {{ user.first_name }}
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
-        <nav id="menu">
-            <ul>
-                <li>
-                    <a href="{% url admin:index %}">
-                        Admin
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url undos.views.list %}">
-                        Undo
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url users.views.edit user.profile.slug %}">
-                        Settings
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url sessions.views.delete %}">
-                        Logout
-                    </a>
-                </li>
-            </ul>
-        </nav>
+<nav>
+  <ul>
+    {% if user.is_anonymous %}
+      <li>
+        <a href='{% url sessions.views.new %}'>Login</a>
+      </li>
+    {% else %}
+      <li>
+        <a href='{% url schedules.views.detail 1 %}'>
+            Schedules
+        </a>
+      </li>
+      <li>
+        <a href='{% url employees.views.list %}'>
+            Employees
+        </a>
+      </li>
+      <li>
+        <a class='account' href='#'>
+            {{ user.first_name }}
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+  {% if not user.is_anonymous %}
+    <nav id='menu'>
+      <ul>
+        <li>
+          <a href='{% url admin:index %}'>
+            Admin
+          </a>
+        </li>
+        <li>
+          <a href='{% url undos.views.list %}'>
+            Undo
+          </a>
+        </li>
+        <li>
+          <a href='{% url users.views.edit user.profile.slug %}'>
+            Settings
+          </a>
+        </li>
+        <li>
+          <a href='{% url sessions.views.delete %}'>
+            Logout
+          </a>
+        </li>
+      </ul>
     </nav>
-{% endif %}
+  {% endif %}
+</nav>

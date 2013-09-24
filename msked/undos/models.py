@@ -1,6 +1,8 @@
 from django.db import models
 from jobs.models import Job
+
 from locations.models import Location
+from msked.utils import pacific_date_time
 
 class Undo(models.Model):
     created  = models.DateTimeField(auto_now_add=True)
@@ -20,7 +22,4 @@ class Undo(models.Model):
         return unicode(u)
 
     def date_time(self):
-        date = self.created.strftime('%b %d, %y')
-        time = self.created.strftime('%I:%M')
-        ampm = self.created.strftime('%p').lower()
-        return '%s - %s %s' % (date, time, ampm)
+        return pacific_date_time(self.created)

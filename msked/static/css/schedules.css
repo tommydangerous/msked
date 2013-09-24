@@ -1,47 +1,22 @@
 /* Root */
 .lab {
   min-width: 1440px; }
-
-.lab div, .seat a {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
-
-.mainLab {
-  float: left; }
-
-.reject .station {
-  margin: 0 auto 20px auto; }
-
-.wetCopies {
-  float: left;
-  right: 100px;
-  position: relative;
-  top: 115px;
-  -webkit-transform: rotate(90deg);
-  -khtml-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transform: rotate(90deg); }
-
-.leftStations {
-  float: left; }
-
-.rightStations {
-  float: left; }
-
-.divider {
-  background: #e6e6e6;
-  float: left;
-  height: 700px;
-  margin: 0 20px; }
-
-.divider, .station {
-  border: 1px solid #c8c8c8; }
-
-.divider, .station, .station h1 {
-  width: 350px; }
+  .lab a, .lab div {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box; }
+  .lab .mainLab {
+    float: left; }
+    .lab .mainLab .leftStations, .lab .mainLab .rightStations {
+      float: left; }
+    .lab .mainLab .divider, .lab .mainLab .station {
+      border: 1px solid #c8c8c8;
+      width: 350px; }
+    .lab .mainLab .divider {
+      background: #e6e6e6;
+      float: left;
+      height: 820px; }
 
 /* Detail */
 .schedule h1, .schedule h2 {

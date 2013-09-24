@@ -4,7 +4,6 @@
   -ms-#{$property}: #{$value};
   #{$property}: #{$value};
 }
-
 .station {
   background: rgb(240, 240, 240);
   margin: 0 0 20px 0;
@@ -20,6 +19,7 @@
     margin: 0;
     position: absolute;
     text-align: center;
+    width: 350px;
     z-index: 0;
   }
   .stationNote {

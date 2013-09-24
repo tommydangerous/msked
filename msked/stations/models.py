@@ -3,12 +3,10 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 
-from jobs.models import Job
 from locations.models import Location
 
 class Station(models.Model):
     created  = models.DateTimeField(auto_now_add=True)
-    job      = models.ForeignKey(Job, blank=True, null=True)
     location = models.ForeignKey(Location)
     name     = models.CharField(max_length=30, unique=True)
     slug     = models.SlugField(blank=True, null=True, unique=True)
