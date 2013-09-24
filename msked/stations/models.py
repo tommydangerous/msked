@@ -21,6 +21,13 @@ class Station(models.Model):
             num = None
         return num
 
+    def numerical_name(self):
+        try:
+            num = int(self.name)
+        except ValueError:
+            num = None
+        return num
+
     def recent_note(self):
         """Return the most recent note."""
         notes = self.note_set.order_by('-created')

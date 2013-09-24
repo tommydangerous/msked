@@ -4,7 +4,7 @@ import os, platform, socket
 # Check environment
 if os.environ.get('MYSITE_PRODUCTION', False):
     # production
-    DEBUG = TEMPLATE_DEBUG = True
+    DEBUG = TEMPLATE_DEBUG = False
     DEV                    = False
     COMPRESS_ENABLED       = True
 else:
@@ -64,7 +64,7 @@ LANGUAGE_CODE = 'en-us'
 
 LOGIN_URL = '/login/'
 
-LOOP_MAX = 20
+LOOP_MAX = 10
 
 MANAGERS = ADMINS
 

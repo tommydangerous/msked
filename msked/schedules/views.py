@@ -96,16 +96,17 @@ def root(request):
     d = {}
     if location_schedule:
         location = location_schedule[0].location
-        stations = sorted(list(location.stations()), key=lambda s: int(s.name))
+        stations = sorted(list(location.stations()), 
+            key=lambda station: station.numerical_name())
         max_stations_per_side = 7
         if len(stations) > max_stations_per_side * 2:
             max_stations = max_stations_per_side * 2
         else:
             max_stations = len(stations)
         left_stations  = sorted(stations[max_stations_per_side:max_stations],
-            key=lambda s: int(s.name), reverse=True)
+            key=lambda station: station.numerical_name(), reverse=True)
         right_stations = sorted(stations[:max_stations_per_side],
-            key=lambda s: int(s.name), reverse=True)
+            key=lambda station: station.numerical_name(), reverse=True)
         d = {
             'left_stations' : left_stations,
             'right_stations': right_stations,

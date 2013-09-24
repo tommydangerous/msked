@@ -7,7 +7,7 @@ def assign_seating(schedule):
     if laboratory:
         employees = list(laboratory.employees_working_here())
         stations  = sorted(list(laboratory.stations()), 
-            key=lambda station: int(station.name))
+            key=lambda station: station.numerical_name())
         employees_for_job = defaultdict(list)
         seats_with_job    = []
         seats_without_job = []
