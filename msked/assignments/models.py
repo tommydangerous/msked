@@ -1,5 +1,6 @@
 from django.db import models
 from employees.models import Employee
+from msked.utils import pacific_date_time, pacific_time
 from seats.models import Seat
 
 class Assignment(models.Model):
@@ -11,10 +12,7 @@ class Assignment(models.Model):
         return 'Seat %s: %s' % (self.seat, self.employee)
 
     def date_time(self):
-        date = self.created.strftime('%b %d, %y')
-        time = self.created.strftime('%I:%M')
-        ampm = self.created.strftime('%p').lower()
-        return '%s - %s%s' % (date, time, ampm)
+        return pacific_date_time(self.created)
 
     def model(self):
         """Return string of model's class name."""
@@ -24,6 +22,4 @@ class Assignment(models.Model):
         return self.seat.station
 
     def time(self):
-        time  = self.created.strftime('%I:%M').lstrip('0')
-        am_pm = self.created.strftime('%p').lower()
-        return time + am_pm
+        return pacific_time(self.created)

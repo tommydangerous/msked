@@ -1,6 +1,7 @@
 from django.db import models
 from employees.models import Employee
 from jobs.models import Job
+from msked.utils import pacific_date_time, pacific_time
 
 class Task(models.Model):
     created  = models.DateTimeField(auto_now_add=True)
@@ -11,11 +12,8 @@ class Task(models.Model):
         return '%s: %s' % (self.job, self.employee)
 
     def date_time(self):
-        date = self.created.strftime('%b %d, %y')
-        time = self.created.strftime('%I:%M')
-        ampm = self.created.strftime('%p').lower()
-        return '%s - %s%s' % (date, time, ampm)
-
+        return pacific_date_time(self.created)
+        
     def employee_pk(self):
         return self.employee.pk
 
@@ -24,6 +22,4 @@ class Task(models.Model):
         return 'task'
 
     def time(self):
-        time  = self.created.strftime('%I:%M').lstrip('0')
-        am_pm = self.created.strftime('%p').lower()
-        return time + am_pm
+        return pacific_time(self.created)

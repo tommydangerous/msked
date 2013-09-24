@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from msked.utils import pacific_date_time, pacific_time
 
 from employees.models import Employee
 from stations.models import Station
@@ -17,10 +18,7 @@ class Note(models.Model):
         return unicode(self.content)
 
     def date_time(self):
-        date = self.created.strftime('%b %d, %y')
-        time = self.created.strftime('%I:%M')
-        ampm = self.created.strftime('%p').lower()
-        return '%s at %s%s' % (date, time, ampm)
+        return pacific_date_time(self.created)
 
     def model(self):
         return 'note'
@@ -29,15 +27,10 @@ class Note(models.Model):
         return self.content[:140]
 
     def time(self):
-        time  = self.created.strftime('%I:%M').lstrip('0')
-        am_pm = self.created.strftime('%p').lower()
-        return time + am_pm
+        return pacific_time(self.created)
 
     def updated_time(self):
-        date = self.updated.strftime('%b %d, %y')
-        time = self.updated.strftime('%I:%M')
-        ampm = self.updated.strftime('%p').lower()
-        return '%s at %s%s' % (date, time, ampm)
+        return pacific_date_time(self.updated)
 
     def save(self, *args, **kwargs):
         self.updated = timezone.now()

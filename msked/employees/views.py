@@ -11,7 +11,7 @@ from django.template import RequestContext
 from employees.forms import EmployeeForm
 from employees.models import Employee
 from employees.utils import remove_local_images, s3_upload
-from msked.utils import add_csrf, page
+from msked.utils import add_csrf, pacific_date, page
 
 @login_required
 def detail(request, slug):
@@ -151,13 +151,12 @@ def timeline(request, slug):
     objects.sort(key=lambda x: x.created, reverse=True)
     # Group objects by date
     if objects:
-        dates = set([obj.created.strftime('%b %d, %y') for obj in objects])
+        dates = set([pacific_date(obj.created) for obj in objects])
         dates = sorted(dates, key=lambda x: datetime.strptime(x, '%b %d, %y'),
             reverse=True)
         days = []
         for day in dates:
-            objs = [obj for obj in objects if obj.created.strftime(
-                '%b %d, %y') == day]
+            objs = [obj for obj in objects if pacific_date(obj.created) == day]
             days.append((day, objs))
     d = {
         'days': days,

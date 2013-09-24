@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from employees.models import Employee
 from locations.models import Location
+from msked.utils import pacific_date_time, pacific_time
 
 class Placement(models.Model):
     created  = models.DateTimeField(auto_now_add=True)
@@ -26,11 +27,8 @@ class Placement(models.Model):
     admin_location.short_description = 'Location'
 
     def date_time(self):
-        date = self.created.strftime('%b %d, %y')
-        time = self.created.strftime('%I:%M')
-        ampm = self.created.strftime('%p').lower()
-        return '%s - %s%s' % (date, time, ampm)
-
+        return pacific_date_time(self.created)
+        
     def model(self):
         """Return string of model's class name."""
         return 'placement'
@@ -39,6 +37,4 @@ class Placement(models.Model):
         return self.employee.team
 
     def time(self):
-        time  = self.created.strftime('%I:%M').lstrip('0')
-        am_pm = self.created.strftime('%p').lower()
-        return time + am_pm
+        return pacific_time(self.created)
