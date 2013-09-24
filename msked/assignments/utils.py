@@ -24,6 +24,8 @@ def assign_seating(schedule):
                             seat.job.current_employees())
                 else:
                     seats_without_job.append(seat)
+        print seats_with_job
+        print seats_without_job
         # Assign seating to specific jobs first
         employees_seated = []
         for seat in seats_with_job:

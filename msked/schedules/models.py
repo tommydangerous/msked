@@ -28,6 +28,7 @@ class Schedule(models.Model):
             1.0/j.needed()), reverse=True)
 
     def laboratory(self):
+        from location_schedules.models import LocationSchedule
         location_schedule = self.locationschedule_set.filter(
             location__name__icontains='lab')
         if location_schedule:
