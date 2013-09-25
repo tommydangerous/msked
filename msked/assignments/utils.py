@@ -26,8 +26,8 @@ def assign_seating(schedule):
                             seat.job.current_employees())
                 else:
                     seats_without_job.append(seat)
-        print seats_with_job
-        print seats_without_job
+        print 'Seats with job:    %s' % len(seats_with_job)
+        print 'Seats without job: %s' % len(seats_without_job)
         # Assign seating to specific jobs first
         employees_seated = []
         for seat in seats_with_job:
@@ -45,5 +45,3 @@ def assign_seating(schedule):
                 employee = remaining_employees.pop()
                 employee.assignment_set.create(seat=seat)
         Undo.objects.create()
-        UpdateMessage.objects.create(content='Seats have been assigned',
-            status='success')

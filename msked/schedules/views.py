@@ -20,13 +20,8 @@ import json
 def assign_and_switch(request, pk):
     """Assign jobs then create placements"""
     schedule = get_object_or_404(Schedule, pk=pk)
-    if settings.DEV:
-        assign_jobs_and_switch_placements(schedule)
-        messages.success(request, 'Jobs assigned, places switched')
-    else:
-        django_rq.enqueue(assign_jobs_and_switch_placements, schedule)
-        messages.warning(request, 
-            'Jobs are being assigned and places are being switched...')
+    assign_jobs_and_switch_placements(schedule)
+    messages.success(request, 'Jobs assigned, places switched')
     return HttpResponseRedirect(reverse('schedules.views.detail', 
         args=[schedule.pk]))
 
@@ -34,13 +29,8 @@ def assign_and_switch(request, pk):
 def assignment(request, pk):
     """Create assignment for station seating for employees."""
     schedule = get_object_or_404(Schedule, pk=pk)
-    if settings.DEV:
-        assign_seating(schedule)
-        messages.success(request, 'Seats have been assigned')
-    else:
-        django_rq.enqueue(assign_seating, schedule)
-        messages.warning(request, 
-            'Seating is being assigned, please wait...')
+    assign_seating(schedule)
+    messages.success(request, 'Seats have been assigned')
     return HttpResponseRedirect(reverse('root_path'))
 
 def detail(request, pk):

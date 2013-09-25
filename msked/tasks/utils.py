@@ -12,7 +12,7 @@ from works.utils import work_check
 def change_task_date():
     print ('-' * 10) + ' Change Task Date ' + ('-' * 10)
     for task in Task.objects.all():
-        task.created = task.created - timedelta(days=30)
+        task.created = task.created - timedelta(days=7)
         task.save()
 
 def create_task_for_daily_jobs(jobs, location):

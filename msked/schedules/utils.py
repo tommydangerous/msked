@@ -108,8 +108,6 @@ def assign_jobs_and_switch_placements(schedule):
             if employee in all_employees:
                 all_employees.remove(employee)
         Undo.objects.create(location=location)
-    UpdateMessage.objects.create(content='Jobs assigned, places switched',
-        status='success')
     if settings.DEV:
         # CHANGE TASK DATE FOR TESTING PURPOSES ONLY
         change_task_date()
