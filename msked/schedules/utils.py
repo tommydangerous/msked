@@ -98,7 +98,7 @@ def assign_jobs_and_switch_placements(schedule):
         Undo.objects.create(job=job)
     # Assign placements to locations
     shuffle(all_employees)
-    for location in schedule.locations_by_occupancy():
+    for location in sorted(schedule.locations(), key=lambda l: l.occupancy):
         for employee in employees_in[location.name]:
             employee.placement_set.create(location=location)
         # 25 - 10 = 15
