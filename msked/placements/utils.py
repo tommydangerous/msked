@@ -1,11 +1,13 @@
 from collections import defaultdict
 from django.conf import settings
 from django.db.models import Q
+from random import shuffle
+
 from employees.models import Employee
 from employees.utils import tier_lab_sum, tier_balance
-from random import shuffle
 from tasks.utils import task_check
 from undos.models import Undo
+from update_messages.models import UpdateMessage
 from works.utils import work_check
 
 def set_placements(schedule):
@@ -54,8 +56,12 @@ def set_placements(schedule):
                     # create employee placements for location
                     employee.placement_set.create(location=location)
                 Undo.objects.create(location=location)
+            UpdateMessage.objects.create(content='Placements set.',
+                status='success')
             return loop_counter
         else:
+            UpdateMessage.objects.create(content='Loop exceeded maximum, nothing was done. Please try again.',
+                status='error')
             return False
 
 def switch_placements(schedule):
@@ -135,6 +141,10 @@ def switch_placements(schedule):
                             # create employee placements for location
                             employee.placement_set.create(location=location)
                         Undo.objects.create(location=location)
+                    UpdateMessage.objects.create(content='Placements switched.',
+                        status='success')
                     return loop_counter
                 else:
+                    UpdateMessage.objects.create(content='Loop exceeded maximum, nothing was done. Please try again.',
+                        status='error')
                     return False
