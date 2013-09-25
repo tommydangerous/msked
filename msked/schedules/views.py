@@ -78,11 +78,14 @@ def placement(request, pk):
     """Create placement and set/switch locations for employees."""
     schedule = get_object_or_404(Schedule, pk=pk)
     if settings.DEV:
-        switch_placements(request, schedule)
+        if switch_placements(schedule):
+            messages.success(request, 'Placements switched')
+        else:
+            messages.error(request, 'Nothing was done, loop exceeded maximum')
     else:
         # Place in queue to run in the background
-        django_rq.enqueue(switch_placements, request, schedule)
-        messages.warning(request, 'Switching placements, please wait')
+        django_rq.enqueue(switch_placements, schedule)
+        messages.success(request, 'Switching placements, please wait')
     return HttpResponseRedirect(reverse('schedules.views.detail', 
         args=[schedule.pk]))
 

@@ -1,6 +1,5 @@
 from collections import defaultdict
 from django.conf import settings
-from django.contrib import messages
 from django.db.models import Q
 from employees.models import Employee
 from employees.utils import tier_lab_sum, tier_balance
@@ -9,7 +8,7 @@ from tasks.utils import task_check
 from undos.models import Undo
 from works.utils import work_check
 
-def set_placements(request, schedule):
+def set_placements(schedule):
     employees = list(schedule.employees())
     # work locations for this schedule
     # locations = sorted(schedule.locations(), 
@@ -55,14 +54,11 @@ def set_placements(request, schedule):
                     # create employee placements for location
                     employee.placement_set.create(location=location)
                 Undo.objects.create(location=location)
-            messages.success(request, 'Placements switched')
             return loop_counter
         else:
-            messages.error(request, 
-                'Nothing was done, loop exceeded maximum')
             return False
 
-def switch_placements(request, schedule):
+def switch_placements(schedule):
     all_employees = Employee.objects.exclude(vacation=True)
     excludes = schedule.exclude_set.all()
     if excludes:
@@ -84,7 +80,7 @@ def switch_placements(request, schedule):
         second_loc = locations[1]
         if not first_loc.current_employees() and not (
                 second_loc.current_employees()):
-            return set_placements(request, schedule)
+            return set_placements(schedule)
         else:
             # create dictionary with empty list for each location
             location_dict = defaultdict(list)
@@ -139,9 +135,6 @@ def switch_placements(request, schedule):
                             # create employee placements for location
                             employee.placement_set.create(location=location)
                         Undo.objects.create(location=location)
-                    messages.success(request, 'Placements switched')
                     return loop_counter
                 else:
-                    messages.error(request, 
-                        'Nothing was done, loop exceeded maximum')
                     return False

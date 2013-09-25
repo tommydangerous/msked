@@ -250,6 +250,7 @@ INSTALLED_APPS += (
     'tasks',
     'teams',
     'undos',
+    'update_messages',
     'users',
     'works',
 )
