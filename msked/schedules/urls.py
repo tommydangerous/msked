@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns('schedules.views',
     url(r'^(?P<pk>[\d]+)/$', 'detail'),
+    url(r'^(?P<pk>[\d]+)/assign-and-switch/$', 'assign_and_switch'),
     url(r'^(?P<pk>[\d]+)/assignment/$', 'assignment'),
     url(r'^(?P<pk>[\d]+)/jobs/$', 'jobs'),
     url(r'^(?P<pk>[\d]+)/locations/$', 'locations'),

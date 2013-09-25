@@ -25,16 +25,22 @@ $(document).ready(function() {
   {% if user.is_authenticated %}
     <nav class="scheduleNav">
       <ul>
+        <!---
+          <li>
+            <a href="{% url schedules.views.placement schedule.pk %}">
+                Switch Locations
+            </a>
+          </li>
+          <li>
+            <a href="{% url schedules.views.task schedule.pk %}">
+                Set Jobs
+            </a>
+          </li>
+        -->
         <li>
-          <a href="{% url schedules.views.placement schedule.pk %}">
-              Switch Locations
+          <a href='{% url schedules.views.assign_and_switch schedule.pk %}'>
+            Assign Jobs & Switch Places
           </a>
-        </li>
-        <li>
-          <a href="{% url schedules.views.task schedule.pk %}">
-              Set Jobs
-          </a>
-        </li>
         <li>
           <a href="{% url schedules.views.assignment schedule.pk %}">
               Assign Seating

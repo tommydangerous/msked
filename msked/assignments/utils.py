@@ -1,6 +1,8 @@
 from collections import defaultdict
 from random import shuffle
+
 from undos.models import Undo
+from update_messages.models import UpdateMessage
 
 def assign_seating(schedule):
     laboratory = schedule.laboratory()
@@ -43,3 +45,5 @@ def assign_seating(schedule):
                 employee = remaining_employees.pop()
                 employee.assignment_set.create(seat=seat)
         Undo.objects.create()
+        UpdateMessage.objects.create(content='Seats have been assigned',
+            status='success')

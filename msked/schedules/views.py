@@ -10,10 +10,25 @@ from django.template import loader, RequestContext
 from assignments.utils import assign_seating
 from placements.utils import set_placements, switch_placements
 from schedules.models import Schedule
+from schedules.utils import assign_jobs_and_switch_placements
 from tasks.utils import set_task
 
 import django_rq
 import json
+
+@login_required
+def assign_and_switch(request, pk):
+    """Assign jobs then create placements"""
+    schedule = get_object_or_404(Schedule, pk=pk)
+    if settings.DEV:
+        assign_jobs_and_switch_placements(schedule)
+        messages.success(request, 'Jobs assigned, places switched')
+    else:
+        django_rq.enqueue(assign_jobs_and_switch_placements, schedule)
+        messages.warning(request, 
+            'Jobs are being assigned and places are being switched...')
+    return HttpResponseRedirect(reverse('schedules.views.detail', 
+        args=[schedule.pk]))
 
 @login_required
 def assignment(request, pk):
@@ -21,10 +36,11 @@ def assignment(request, pk):
     schedule = get_object_or_404(Schedule, pk=pk)
     if settings.DEV:
         assign_seating(schedule)
-        messages.success(request, 'Seating assigned')
+        messages.success(request, 'Seats have been assigned')
     else:
         django_rq.enqueue(assign_seating, schedule)
-        messages.success(request, 'Seating is being assigned, please wait')
+        messages.warning(request, 
+            'Seating is being assigned, please wait...')
     return HttpResponseRedirect(reverse('root_path'))
 
 def detail(request, pk):
