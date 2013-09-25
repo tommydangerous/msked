@@ -2,6 +2,7 @@ from collections import defaultdict
 from django.conf import settings
 from random import shuffle
 
+from employees.utils import tier_balance
 from schedules.models import Schedule
 from tasks.utils import change_task_date
 from undos.models import Undo
@@ -96,18 +97,39 @@ def assign_jobs_and_switch_placements(schedule):
                 print '-' * 20
     for job in daily_jobs:
         Undo.objects.create(job=job)
+    # Tier balance
+    laboratory   = schedule.laboratory()
+    office       = schedule.office()
+    lab_needed   = laboratory.occupancy - len(employees_in[laboratory.name])
+    remaining    = defaultdict(list)
+    balanced     = False
+    loop_counter = 0
+    while not balanced and loop_counter < settings.LOOP_MAX:
+        shuffle(all_employees)
+        remaining[laboratory.name] = all_employees[:lab_needed]
+        remaining[office.name]     = all_employees[lab_needed:]
+        all_lab    = remaining[laboratory.name] + employees_in[laboratory.name]
+        all_office = remaining[office.name] + employees_in[office.name]
+        balanced   = tier_balance(all_lab, all_office)
+        loop_counter +=1
+        print loop_counter
     # Assign placements to locations
-    shuffle(all_employees)
-    for location in sorted(schedule.locations(), key=lambda l: l.occupancy):
-        for employee in employees_in[location.name]:
+    for location in schedule.locations():
+        for employee in employees_in[location.name] + remaining[location.name]:
             employee.placement_set.create(location=location)
-        # 25 - 10 = 15
-        remaining_number = location.occupancy - len(employees_in[location.name])
-        for employee in all_employees[:remaining_number]:
-            employee.placement_set.create(location=location)
-            if employee in all_employees:
-                all_employees.remove(employee)
         Undo.objects.create(location=location)
+
     if settings.DEV:
         # CHANGE TASK DATE FOR TESTING PURPOSES ONLY
         change_task_date()
+
+# for location in sorted(schedule.locations(), key=lambda l: l.occupancy):
+#     for employee in employees_in[location.name]:
+#         employee.placement_set.create(location=location)
+#     # 25 - 10 = 15
+#     remaining_number = location.occupancy - len(employees_in[location.name])
+#     for employee in all_employees[:remaining_number]:
+#         employee.placement_set.create(location=location)
+#         if employee in all_employees:
+#             all_employees.remove(employee)
+#     Undo.objects.create(location=location)
