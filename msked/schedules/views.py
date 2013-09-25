@@ -116,6 +116,7 @@ def root(request):
         d = {
             'left_stations' : left_stations,
             'right_stations': right_stations,
+            'title':          'Lab',
         }
     return render_to_response('schedules/root.html', d, 
         context_instance=RequestContext(request))
