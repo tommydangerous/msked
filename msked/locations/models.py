@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -25,6 +26,14 @@ class Location(models.Model):
         """
         from employees.models import Employee
         placements = self.placement_set.order_by('-created')[:self.occupancy]
+        try:
+            most_recent = placements[0]
+            recent_date = most_recent.created
+            within_week = recent_date - timedelta(
+                days=int(recent_date.strftime('%w')))
+            placements = [p for p in placements if p.created >= within_week]
+        except IndexError:
+            pass
         employees  = [p.employee for p in placements if (
             p.employee.current_location() and p.employee.current_location(
                 ) == self)]

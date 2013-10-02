@@ -40,14 +40,14 @@ AWS_HEADERS = {
 AWS_QUERYSTRING_AUTH = False
 
 if DEV:
-    DATABASES_HOST = '' if platform.system() == 'Windows' else '192.168.1.70'
+    # DATABASES_HOST = '' if platform.system() == 'Windows' else '192.168.1.70'
     DATABASES = {
         'default': {
             'ENGINE':   'django.db.backends.postgresql_psycopg2',
             'NAME':     '%s' % project_name,
             'USER':     'postgres',
             'PASSWORD': 'postgres',
-            'HOST':     DATABASES_HOST,
+            'HOST':     '', # DATABASES_HOST,
             'PORT':     '5432',
         }
     }
