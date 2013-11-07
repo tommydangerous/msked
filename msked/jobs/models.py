@@ -1,4 +1,7 @@
+from datetime import timedelta
 from django.db import models
+from django.utils import timezone
+
 from employees.models import Employee
 from teams.models import Team
 
@@ -22,7 +25,10 @@ class Job(models.Model):
         elif self.weekly:
             need = self.weekly
         tasks = Task.objects.filter(job=self).order_by('-created')[:need]
-        employees = [t.employee for t in tasks]
+        recent_date = timezone.now()
+        within_week = recent_date - timedelta(
+            days=int(recent_date.strftime('%w')))
+        employees = [t.employee for t in tasks if t.created >= within_week]
         if self.daily:
             return employees
         return sorted(employees, key=lambda e: e.last_name)
