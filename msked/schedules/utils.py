@@ -12,6 +12,7 @@ from works.utils import work_check
 def assign_jobs_and_switch_placements(schedule):
     # Check to see if there are enough employees left to work each job
     work_check(schedule)
+    
     all_employees = list(schedule.employees())
     all_jobs      = schedule.jobs()
     daily_jobs = sorted([job for job in all_jobs if job.daily],

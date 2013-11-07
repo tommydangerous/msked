@@ -149,12 +149,12 @@ def timeline(request, slug):
     tasks       = [x for x in employee.task_set.order_by('-created')]
     objects     = assignments + notes + placements + tasks 
     objects.sort(key=lambda x: x.created, reverse=True)
+    days = []
     # Group objects by date
     if objects:
         dates = set([pacific_date(obj.created) for obj in objects])
         dates = sorted(dates, key=lambda x: datetime.strptime(x, '%b %d, %y'),
             reverse=True)
-        days = []
         for day in dates:
             objs = [obj for obj in objects if pacific_date(obj.created) == day]
             days.append((day, objs))

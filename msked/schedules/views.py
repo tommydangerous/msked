@@ -15,6 +15,7 @@ from tasks.utils import set_task
 
 import django_rq
 import json
+import os
 
 @login_required
 def assign_and_switch(request, pk):
