@@ -227,6 +227,7 @@ INSTALLED_APPS = (
 
 INSTALLED_APPS += (
     'compressor',
+    'django_extensions',
     'django_rq',
     'south',
     'storages',

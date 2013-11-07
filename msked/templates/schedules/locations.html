@@ -5,7 +5,7 @@
       {% for employee in employees %}
         <li>
           <a href="{% url employees.views.detail employee.slug %}">
-            {% if employee.team.pk == 6 %}
+            {% if employee.team.location %}
               <span class="red">{{ employee }}</span>
             {% else %}
               {{ employee }}

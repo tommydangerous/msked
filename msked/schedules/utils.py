@@ -12,16 +12,38 @@ from works.utils import work_check
 def assign_jobs_and_switch_placements(schedule):
     # Check to see if there are enough employees left to work each job
     work_check(schedule)
-    
+    # Get all employees that are in this schedule's automatic rotation
     all_employees = list(schedule.employees())
+    # Get all jobs that are part of this schedule's automatic rotation
     all_jobs      = schedule.jobs()
     daily_jobs = sorted([job for job in all_jobs if job.daily],
         key=lambda job: (job.scarcity(), 1.0/job.needed()))
     weekly_jobs = sorted([job for job in all_jobs if job.weekly],
         key=lambda job: (job.scarcity(), 1.0/job.needed()))
+    # Create a dictionary with location name as key and with an empty list
     employees_in = defaultdict(list)
     for location in schedule.locations():
         employees_in[location.name] = []
+
+    # Find teams with a location value and place those employees in a location
+    # Laboratory only teams
+    for team in schedule.laboratory().team_set.all():
+        for employee in team.employee_set.all():
+            # Remove employee from the all_employees list
+            all_employees.remove(employee)
+            # Add employee to employees in laboratory
+            if employee not in employees_in[schedule.laboratory().name]:
+                employees_in[schedule.laboratory().name].append(employee)
+
+    # Office only teams
+    for team in schedule.office().team_set.all():
+        for employee in team.employee_set.all():
+            # Remove employee from the all_employees list
+            all_employees.remove(employee)
+            # Add employee to employees in laboratory
+            if employee not in employees_in[schedule.office().name]:
+                employees_in[schedule.office().name].append(employee)
+
     # Weekly jobs
     for job in weekly_jobs:
         # If a team works the job
@@ -35,6 +57,7 @@ def assign_jobs_and_switch_placements(schedule):
                 ) and job.pk not in e.worked() and e.pk not in ex_pks]
         # Randomize the pool
         shuffle(pool)
+        # Then select X number of employees from the pool
         chosen = pool[:job.needed()]
         for employee in chosen:
             employee.task_set.create(job=job)
@@ -44,9 +67,11 @@ def assign_jobs_and_switch_placements(schedule):
             # Add employee to employees in laboratory
             if employee not in employees_in[schedule.laboratory().name]:
                 employees_in[schedule.laboratory().name].append(employee)
+        # Create the Undo for the job
         Undo.objects.create(job=job)
         print '%s: %s' % (job, [(e, e.pk) for e in chosen])
         print '-' * 20
+
     # Daily jobs with employees taken from the office
     # Excluded employees from the job
     exclude_pks = []
@@ -98,6 +123,7 @@ def assign_jobs_and_switch_placements(schedule):
                 print '-' * 20
     for job in daily_jobs:
         Undo.objects.create(job=job)
+
     # Tier balance
     laboratory   = schedule.laboratory()
     office       = schedule.office()
@@ -114,14 +140,15 @@ def assign_jobs_and_switch_placements(schedule):
         balanced   = tier_balance(all_lab, all_office)
         loop_counter +=1
         print loop_counter
+
     # Assign placements to locations
     for location in schedule.locations():
         for employee in employees_in[location.name] + remaining[location.name]:
             employee.placement_set.create(location=location)
         Undo.objects.create(location=location)
 
+    # CHANGE TASK DATE FOR TESTING PURPOSES ONLY
     if settings.DEV:
-        # CHANGE TASK DATE FOR TESTING PURPOSES ONLY
         change_task_date()
 
 # for location in sorted(schedule.locations(), key=lambda l: l.occupancy):
